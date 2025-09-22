@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Learning JavaScript</title>
+</head>
+<body>
+
+<p id="demo"></p>
+<button onclick="changeParagraphToLink()">Change Paragraph to Link</button>
+
+<button onclick="changeParagraphText()">Change Paragraph Text</button>
+
+<br><br>
+<label for="inputField">Input Field:</label>
+<input type="text" id="inputField">
+<button onclick="updateInputField()">Change Input Value</button>
+
+<br><br>
+<button onclick="print()">Print this page</button>
+
+<br><br>
+<p id="new"></p>
+<p id="new2"></p>
+
+<label for="age">Enter your age:</label>
+<input type="text" id="age" name="age">
+<button onclick="ageCheck()">Vote</button>
+<p id="checkResult"></p>
+
+<br><br>
+
+<label for="rand_num">Enter numbers separated by commas:</label>
+<input type="text" id="rand_num" name="rand_num" value="3,5,1,8,2">
+<button onclick="max_min()">Get Max/Min</button>
+<p>Max: <span id="maxResult"></span></p>
+<p>Min: <span id="minResult"></span></p>
+
+<br><br>
+
+<script src="script.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
