@@ -100,3 +100,97 @@ if (x > y) {
 rand_num = [3, 5, 7, 34, 2, 89, 2, 5, 90, 23];
 console.log(Math.max(...rand_num));
 console.log(Math.min(...rand_num));
+
+let xy = 1234567890123456789012345n;  
+console.log(typeof xy);  // bigint
+
+const x1 = Symbol("x");
+const y1 = Symbol("y");
+console.log(typeof x1);  // symbol
+
+let sex = "male";
+let gender = (sex == "male") ? "boy" : "girl";
+console.log(gender);
+
+let day;
+// day = prompt("Enter a number between 0 and 6:");
+let date = new Date().getDay();
+console.log(date);  // Returns the current day as a number (0-6)
+
+// Use the switch statement to select the day:
+switch (date) {
+  case 0:
+    day = "Sunday";
+    break;
+  case 1:
+    day = "Monday";
+    break;
+  case 2:
+     day = "Tuesday";
+    break;
+  case 3:
+    day = "Wednesday";
+    break;
+  case 4:
+    day = "Thursday";
+    break;
+  case 5:
+    day = "Friday";
+    break;
+  case 6:
+    day = "Saturday";
+}
+
+console.log(`Today is ${day}.`);
+
+// Grade based on score
+// Write a JavaScript program that takes a score input between 0 and 100 and displays the corresponding grade based on the following criteria:
+// Score  Grade
+// 90-100  A
+// 80-89   B
+// 70-79   C
+// 60-69   D
+// 50-59   E
+// 0-49    F
+let score = 70;
+let grade;
+switch (true) {
+  case (score >= 90 && score <= 100):
+    grade = "A";
+    break;
+  case (score >= 80 && score < 90):
+    grade = "B";
+    break;
+  case (score >= 70 && score < 80):
+    grade = "C";
+    break;
+  case (score >= 60 && score < 70):
+    grade = "D";
+    break;
+  case (score >= 50 && score < 60):
+    grade = "E";
+    break;
+  default:
+    grade = "F";
+    break;
+}
+
+console.log(`Your grade is ${grade}.`);
+
+if (score >= 90 && score <= 100) {
+  grade = "A";
+} else if (score >= 80 && score < 90){
+  grade = "B";
+} else if (score >= 70 && score < 80){
+  grade = "C";
+} else if (score >= 60 && score < 70){
+  grade = "D";
+} else if (score >= 50 && score < 60){
+  grade = "E";
+} else if (score >= 0 && score < 50){
+  grade = "F";
+} else{
+  grade = "Invalid score";
+}
+
+console.log(`Your grade is ${grade}.`);

@@ -226,6 +226,85 @@ car.color = "red";
 car.owner = "Johnson";
 ```
 
+## JavaScript Data Types
+
+JavaScript has 8 Datatypes
+A JavaScript variable can hold 8 types of data:
+
+|Type | Description |
+| - | - |
+| String | Text |
+| String | A text of characters enclosed in quotes |
+| Number | A number representing a mathematical value |
+| Bigint | A number representing a large integer |
+| Boolean | A data type representing true or false |
+| Object | A collection of key-value pairs of data |
+| Undefined | A primitive variable with no assigned value |
+| Null | A primitive value representing object absence |
+| Symbol | A unique and primitive identifier |
+
+Examples
+
+```javascript
+// String
+let color = "Yellow";
+let lastName = "Johnson";
+
+// Number
+let length = 16;
+let weight = 7.5;
+
+// BigInt
+let x = 1234567890123456789012345n;
+let y = BigInt(1234567890123456789012345)
+
+// Boolean
+let x = true;
+let y = false;
+
+// Object
+const person = {firstName:"John", lastName:"Doe"};
+
+// Array object
+const cars = ["Saab", "Volvo", "BMW"];
+
+// Date object
+const date = new Date("2022-03-25");
+
+// Undefined
+let x;
+let y;
+
+// Null
+let x = null;
+let y = null;
+
+// Symbol
+const x = Symbol();
+const y = Symbol();
+```
+
+## The typeof Operator
+
+You can use the JavaScript typeof operator to find the type of a JavaScript variable.
+
+The typeof operator returns the type of a variable or an expression:
+
+```javascript
+let xy = 1234567890123456789012345n;  
+console.log(typeof xy);  // bigint
+
+const x1 = Symbol("x");
+const y1 = Symbol("y");
+console.log(typeof x1);  // symbol
+
+console.log(typeof "John");  // string
+console.log(typeof 3.14);  // number
+console.log(typeof true);  // boolean
+console.log(typeof undefined);  // undefined
+console.log(typeof null);  // object
+```
+
 Javascript operators are used to perform different types of mathematical and logical computations.
 
 Examples:
@@ -341,6 +420,17 @@ if (condition) {
 }
 ```
 
+Example
+Make a "Good day" greeting if the hour is less than 18:00:
+
+```javascript
+let hour = 19;
+let greeting;
+if (hour < 18) {
+  greeting = "Good day";
+}
+```
+
 ### The else Statement
 
 Use else to specify a code block to be executed, if the same condition is false.
@@ -352,6 +442,19 @@ if (condition) {
   // code to execute if the condition is true
 } else {
   // code to execute if the condition is false
+}
+```
+
+Example
+If the hour is less than 18, create a "Good day" greeting, otherwise "Good evening":
+
+```javascript
+let hour = 19;
+let greeting;
+if (hour < 18) {
+  greeting = "Good day";
+} else {
+  greeting = "Good evening";
 }
 ```
 
@@ -371,7 +474,28 @@ if (condition1) {
 }
 ```
 
+Example
+If time is less than 10:00, create a "Good morning" greeting, if not, but time is less than 20:00, create a "Good day" greeting, otherwise a "Good evening":
+
+```javascript
+let time = 20;
+let greeting;
+if (time < 10) {
+  greeting = "Good morning";
+} else if (time < 20) {
+  greeting = "Good day";
+} else {
+  greeting = "Good evening";
+}
+```
+
 ### The switch Statement
+
+Based on a condition, switch selects one or more code blocks to be executed.
+
+switch executes the code blocks that matches an expression.
+
+switch is often used as a more readable alternative to many if...else if...else statements, especially when dealing with multiple possible values.
 
 Use switch to specify many alternative code blocks to be executed.
 
@@ -390,6 +514,60 @@ switch(expression) {
 }
 ```
 
+This is how it works:
+
+- The switch expression is evaluated once.
+- The value of the expression is compared with the values of each case.
+- If there is a match, the associated block of code is executed.
+- If there is no match, no code is executed.
+
+```javascript
+Example
+The getDay() method returns the weekday as a number between 0 and 6.
+
+(Sunday=0, Monday=1, Tuesday=2 ..)
+
+This example uses the weekday number to calculate the weekday name:
+
+switch (new Date().getDay()) {
+  case 0:
+    day = "Sunday";
+    break;
+  case 1:
+    day = "Monday";
+    break;
+  case 2:
+     day = "Tuesday";
+    break;
+  case 3:
+    day = "Wednesday";
+    break;
+  case 4:
+    day = "Thursday";
+    break;
+  case 5:
+    day = "Friday";
+    break;
+  case 6:
+    day = "Saturday";
+    break;
+  default:
+    day = "Looking forward to the Weekend";
+}
+```
+
+Note: The break keyword is crucial for preventing a "fall-through."
+
+Without break, the code will continue to execute the next case blocks (and the default block if present) even if their values do not match the expression.
+
+### The default keyword
+
+The default keyword specifies a block of code to run if there is no case match.
+
+The default keyword is optional.
+
+The default can act as a fallback:
+
 ### Ternary Operator (? :)
 
 Use `(? :)` (ternary) as a shorthand for `if...else`.
@@ -397,3 +575,12 @@ Use `(? :)` (ternary) as a shorthand for `if...else`.
 Example
 `condition ? expression1 : expression2`
 
+```javascript
+let time = 20;
+let greeting = time < 18 ? "Good day" : "Good evening";
+
+// If the value of age is < 18, set the value of text to "Minor", otherwise to "Adult":
+
+let age = 19;
+let text = (age < 18) ? "Adult" : "Minor";
+```
