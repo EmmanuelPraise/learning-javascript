@@ -1,48 +1,48 @@
-console.log("My First Javascript");
+// console.log("My First Javascript");
 
 let x,y,z;
 x = 5;
 y = 6;
 z = x + y;
-console.log(z);
+// console.log(z);
 
 //  Variables can be redeclared with var,, but not with let or const.
 //  Redeclaring a variable with var can lead to unexpected behavior.
 var carName = "Volvo";
 var carName;
-console.log(carName); // Outputs "Volvo"
+// console.log(carName); // Outputs "Volvo"
 
 //  Using let or const will result in an error if you try to redeclare the variable.
 let fruit = "Apple";
 // let fruit; // This will cause an error
-console.log(fruit); // Outputs "Apple"
+// console.log(fruit); // Outputs "Apple"
 const pi = 3.14;
 // const pi; // This will cause an error
 
 // Note: If you put a number in quotes, the rest of the numbers will be treated as strings, and concatenated.
 let a = "5" + 2 + 3;
-console.log(a);
+// console.log(a);
 
 // Note: If the first value is a number, the rest of the values will be treated as numbers, and added.
 let b = 2 + 3 + "5";
-console.log(b);
+// console.log(b);
 
 // Constant Arrays
 // Create an Array:
 const cars = ["Saab", "Volvo", "BMW"];
-console.log(cars);
+// console.log(cars);
 
 // Change an element:
 cars[0] = "Toyota";
 
 // Add an element:
 cars.push("Audi");
-console.log(cars);
+// console.log(cars);
 
 // Constant Objects
 // You can create a const object:
 const car = {type:"Fiat", model:"500", color:"white"};
-console.log(car);
+// console.log(car);
 
 
 // You can change a property:
@@ -50,9 +50,9 @@ car.color = "red";
 
 // You can add a property:
 car.owner = "Johnson";
-console.log(car);
+// console.log(car);
 
-console.log(`Car type: ${car.type}, Car model: ${car.model}, Car color: ${car.color}, Car owner: ${car.owner}`);
+// console.log(`Car type: ${car.type}, Car model: ${car.model}, Car color: ${car.color}, Car owner: ${car.owner}`);
 
 
 // Constructor Function for Person objects
@@ -69,8 +69,8 @@ function Person(first, last, age, eye) {
 // Create a Person object
 const myFather = new Person("John", "Doe", 50, "blue");
 const myMother = new Person("Sally", "Rally", 48, "green");
-console.log("My father is " + myFather.firstName + " " + myFather.lastName + ".");
-console.log("My mother is " + myMother.firstName + " " + myMother.lastName + ".");
+// console.log("My father is " + myFather.firstName + " " + myFather.lastName + ".");
+// console.log("My mother is " + myMother.firstName + " " + myMother.lastName + ".");
 
 
 // Display age
@@ -79,7 +79,7 @@ console.log("My mother is " + myMother.firstName + " " + myMother.lastName + "."
 
 let text = "Hello World!";       // String
 const text_array = [...text];
-console.log(text_array);
+// console.log(text_array);
 
 
 // Largest of TWO Numbers
@@ -88,34 +88,34 @@ console.log(text_array);
 x = 1;
 y = 2;
 
-if (x > y) {
-  console.log(`${x}`);
-} else if (y > x) {
-  console.log(`${y}`);
-}else{
-  console.log("Invalid input!");
-}
+// if (x > y) {
+//   console.log(`${x}`);
+// } else if (y > x) {
+//   console.log(`${y}`);
+// }else{
+//   console.log("Invalid input!");
+// }
 
 
 rand_num = [3, 5, 7, 34, 2, 89, 2, 5, 90, 23];
-console.log(Math.max(...rand_num));
-console.log(Math.min(...rand_num));
+// console.log(Math.max(...rand_num));
+// console.log(Math.min(...rand_num));
 
 let xy = 1234567890123456789012345n;  
-console.log(typeof xy);  // bigint
+// console.log(typeof xy);  // bigint
 
 const x1 = Symbol("x");
 const y1 = Symbol("y");
-console.log(typeof x1);  // symbol
+// console.log(typeof x1);  // symbol
 
 let sex = "male";
 let gender = (sex == "male") ? "boy" : "girl";
-console.log(gender);
+// console.log(gender);
 
 let day;
 // day = prompt("Enter a number between 0 and 6:");
 let date = new Date().getDay();
-console.log(date);  // Returns the current day as a number (0-6)
+// console.log(date);  // Returns the current day as a number (0-6)
 
 // Use the switch statement to select the day:
 switch (date) {
@@ -141,7 +141,7 @@ switch (date) {
     day = "Saturday";
 }
 
-console.log(`Today is ${day}.`);
+// console.log(`Today is ${day}.`);
 
 // Grade based on score
 // Write a JavaScript program that takes a score input between 0 and 100 and displays the corresponding grade based on the following criteria:
@@ -175,7 +175,7 @@ switch (true) {
     break;
 }
 
-console.log(`Your grade is ${grade}.`);
+// console.log(`Your grade is ${grade}.`);
 
 if (score >= 90 && score <= 100) {
   grade = "A";
@@ -193,4 +193,78 @@ if (score >= 90 && score <= 100) {
   grade = "Invalid score";
 }
 
-console.log(`Your grade is ${grade}.`);
+// console.log(`Your grade is ${grade}.`);
+
+
+function toggleBulb() {
+  let bulbOn = false;
+
+  if (bulbOn != true){
+    console.log("Bulb is off")
+    bulbOn = false
+  } else if (bulbOn) {
+    console.log("Bulb is on");
+    bulbOn = true
+  }
+} 
+
+// toggleBulb()
+
+// let i;
+// for (i = 0; i < 10; i++) {
+//   console.log(i);
+// }
+
+// For loop that increments by 2
+let i;
+for (i = 0; i < 10; i += 2) {
+  // console.log(`Looping ${i}`);
+}
+
+const car_brands = ["volvo", "mazda", "toyota", "lexus", "ferarri", "bugatti"]
+// console.log(car_brands);
+
+let car_brand_list = "";
+for (let i = 0; i < car_brands.length; i++){
+  car_brand_list += `${car_brands[i]}\n`
+}
+// console.log(car_brand_list);
+
+let text2 = "";
+
+let j = 1;
+while (j <= 10) {
+  text2 += `The number is ${j}\n`;
+  j++;
+}
+// console.log(text2);
+
+let text3 = "";
+
+let ij = 0;
+do {
+  text3 += `The number is ${ij}\n`;
+  ij++;
+}
+while (ij < 10);
+
+// console.log(text3);
+
+
+a = 1;
+while (true) {
+  // console.log(a);
+
+ if (a >= 20) {
+   break;
+ }
+
+  a ++;
+}
+
+b =  3
+c = "3"
+
+console.log(b == c);
+console.log(b === c);
+

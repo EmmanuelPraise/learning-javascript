@@ -386,6 +386,18 @@ Comparison operators always return true or false.
 | >= | Greater than or equal to | x >= y |
 | <= | Less than or equal to | x <= y |
 
+```javascript
+b =  3
+c = "3"
+
+// Compares the two variables but not the type
+console.log(b == c);  // true
+
+// Compares the two variables and the type
+console.log(b === c);  // false
+
+```
+
 ## Conditional Statements
 
 When you write code, you often want to perform different actions for different conditions.
@@ -584,3 +596,134 @@ let greeting = time < 18 ? "Good day" : "Good evening";
 let age = 19;
 let text = (age < 18) ? "Adult" : "Minor";
 ```
+
+### The Boolean Data Type
+
+In JavaScript, a Boolean is a primitive data type that can only have one of two values:
+
+`true` or `false`
+
+The Boolean value of an expression is the basis for all JavaScript comparisons and conditions.
+
+## JavaScript Loops
+
+Loops can be used to execute a block of code a number of times.
+
+### The For Loop
+
+The for statement creates a loop with 3 optional expressions:
+
+```javascript
+for (statement1; statement2; statement3) {
+  // code block to be executed
+}
+```
+
+- exp1 is executed one time before the execution of the code block.
+- exp2 defines the condition for executing the code block.
+- exp3 is executed every time the code block has been executed.
+
+Example
+
+```javascript
+let text = "";
+
+for (let i = 0; i < 5; i++) {
+  text += "The number is " + i + "<br>";
+}
+
+// ----------------------
+const cars = ["BMW", "Volvo", "Saab", "Ford"];
+let len = cars.length;
+
+let text = "";
+for (let i = 0; i < len; i++) {
+  text += cars[i] + "<br>";
+}
+
+console.log(text);
+```
+
+### The While Loop
+
+The while loop loops through a block of code as long as a specified condition is true.
+
+Syntax
+
+```javascript
+while (condition) {
+  // code block to be executed
+}
+
+let text = "";
+
+let i = 0;
+while (i < 10) {
+  text += "The number is " + i;
+  i++;
+}
+```
+
+Note: If you forget to increase the variable used in the condition, the loop will never end, This will crash your browser.
+
+### The Do While Loop
+
+The do while loop is a variant of the while loop.
+
+The do while loop will execute the code block once, before checking if the condition is true, then it will repeat the loop as long as the condition is true.
+
+Syntax
+
+```javascript
+do {
+// code block to be executed
+}
+while (condition);
+```
+
+Note: The `do while` loop will always be executed at least once, even if the condition is false from the start.
+
+This is because the code block is executed before the condition is tested:
+
+Example
+
+```javascript
+let text = "";
+
+let i = 0;
+do {
+  text += `The number is ${i}\n`;
+  i++;
+}
+while (i < 10);
+
+console.log(text);
+```
+
+Note: Do not forget to increase the variable used in the condition, otherwise the loop will never end!
+
+### The Break Statement
+
+The break statement "jumps out" of loops and switches.
+
+The break statement terminates the execution of a loop or a switch statement.
+
+### JavaScript Labels
+
+A label provides a name for a statement, or a block of statements, allowing statements to be referenced to, for program flow control, particularly in loops.
+
+Syntax
+A label is an identifier followed by a colon (:).
+`labelname: statement;`
+
+A label precedes a statement or a block of code.
+
+```javascript
+labelname: {
+  statements
+}
+```
+
+Labeled Break
+Syntax
+`break labelname;`
