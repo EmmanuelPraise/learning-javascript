@@ -4,37 +4,37 @@ let txt = "<h1>Hello World!</h1>"; // String
 document.getElementById("demo").innerHTML = txt;
 
 function changeParagraphToLink() {
-    document.getElementById("demo").innerHTML = "<a href='https://www.w3schools.com'>Paragraph changed.</a>";
+  document.getElementById("demo").innerHTML = "<a href='https://www.w3schools.com'>Paragraph changed.</a>";
 }
 
 function changeParagraphText() {
-    document.getElementById("demo").innerText = "Paragraph Text changed.";
+  document.getElementById("demo").innerText = "Paragraph Text changed.";
 }
 
 function updateInputField() {
-    let value = document.getElementById("inputField").value;
-    alert("Input field updated to: " + value);
-    console.log("Input field value: " + value); 
+  let value = document.getElementById("inputField").value;
+  alert("Input field updated to: " + value);
+  console.log("Input field value: " + value);
 }
 
 function ageCheck() {
-    let voteable;
-    let age = Number(document.getElementById("age").value);
-    if (isNaN(age)) {
-      voteable = "Input is not a number";
-    } else {
-      voteable = (age < 18) ? "Too young" : "Old enough";
-    }
-    document.getElementById("checkResult").style.color = "blue";
-    document.getElementById("checkResult").style.fontSize = "14px";
-    document.getElementById("checkResult").innerHTML = `You are ${age} years old, therefore you are ${voteable + " to vote"}`;
+  let voteable;
+  let age = Number(document.getElementById("age").value);
+  if (isNaN(age)) {
+    voteable = "Input is not a number";
+  } else {
+    voteable = (age < 18) ? "Too young" : "Old enough";
   }
+  document.getElementById("checkResult").style.color = "blue";
+  document.getElementById("checkResult").style.fontSize = "14px";
+  document.getElementById("checkResult").innerHTML = `You are ${age} years old, therefore you are ${voteable + " to vote"}`;
+}
 
 
 function max_min() {
-let rand_num = document.getElementById("rand_num").value.split(",").map(Number);
-document.getElementById("maxResult").innerHTML = Math.max(...rand_num);
-document.getElementById("minResult").innerHTML = Math.min(...rand_num);
+  let rand_num = document.getElementById("rand_num").value.split(",").map(Number);
+  document.getElementById("maxResult").innerHTML = Math.max(...rand_num);
+  document.getElementById("minResult").innerHTML = Math.min(...rand_num);
 }
 
 
@@ -43,23 +43,23 @@ function getGrade() {
   let grade = "";
   if (score >= 90 && score <= 100) {
     grade = "A";
-  } else if (score >= 80 && score < 90){
+  } else if (score >= 80 && score < 90) {
     grade = "B";
-  } else if (score >= 70 && score < 80){
+  } else if (score >= 70 && score < 80) {
     grade = "C";
-  } else if (score >= 60 && score < 70){
+  } else if (score >= 60 && score < 70) {
     grade = "D";
-  } else if (score >= 50 && score < 60){
+  } else if (score >= 50 && score < 60) {
     grade = "E";
-  } else if (score >= 0 && score < 50){
+  } else if (score >= 0 && score < 50) {
     grade = "F";
-  } else{
+  } else {
     grade = "Invalid score";
   }
 
   // console.log(typeof score);
-  
-  
+
+
   document.getElementById("grade").innerHTML = `Your grade is ${grade}.`;
 }
 
@@ -70,7 +70,46 @@ function toggleBulb() {
     bulbImg.src = "/w3schools_js/img/pic_bulbon.gif";
   } else if (cmd === "off") {
     bulbImg.src = "/w3schools_js/img/pic_bulboff.gif";
-}
+  }
 }
 
 toggleBulb()
+
+function changeBackgroundColor() {
+  let red_ = Math.floor(Math.random() * 256);
+  console.log(red_);
+
+  let green_ = Math.floor(Math.random() * 256);
+  console.log(green_);
+
+  let blue_ = Math.floor(Math.random() * 256);
+  console.log(blue_);
+
+  let alpha_ = Math.random().toFixed(2);
+  console.log(alpha_);
+
+  let rgbaColor = `rgba(${red_}, ${green_}, ${blue_}, ${alpha_})`;
+
+  document.body.style.backgroundColor = rgbaColor;
+}
+
+let text = document.getElementById("demo_").innerHTML;
+
+function lowercase() {
+  document.getElementById("demo_").innerHTML =
+    text.toLowerCase();
+}
+
+function uppercase() {
+  document.getElementById("demo_").innerHTML =
+    text.toUpperCase();
+}
+
+function fullName(){
+  let fullName = document.getElementById("fullName").value;
+
+  fullName = fullName.trim().split(" ");
+
+  document.getElementById("demo_").innerHTML = `Full Name: ${fullName.join(" ")}`;
+}
+

@@ -1,60 +1,71 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Learning JavaScript</title>
 </head>
+
 <body>
 
-<p id="demo"></p>
-<button onclick="changeParagraphToLink()">Change Paragraph to Link</button>
+    <p id="demo"></p>
+    <button onclick="changeParagraphToLink()">Change Paragraph to Link</button>
 
-<button onclick="changeParagraphText()">Change Paragraph Text</button>
+    <button onclick="changeParagraphText()">Change Paragraph Text</button>
 
-<br><br>
-<label for="inputField">Input Field:</label>
-<input type="text" id="inputField">
-<button onclick="updateInputField()">Change Input Value</button>
+    <br><br>
+    <label for="inputField">Input Field:</label>
+    <input type="text" id="inputField">
+    <button onclick="updateInputField()">Change Input Value</button>
 
-<br><br>
-<button onclick="print()">Print this page</button>
+    <br><br>
+    <button onclick="print()">Print this page</button>
 
-<br><br>
-<p id="new"></p>
-<p id="new2"></p>
+    <br><br>
+    <p id="new"></p>
+    <p id="new2"></p>
 
-<label for="age">Enter your age:</label>
-<input type="text" id="age" name="age">
-<button onclick="ageCheck()">Vote</button>
-<p id="checkResult"></p>
+    <label for="age">Enter your age:</label>
+    <input type="text" id="age" name="age">
+    <button onclick="ageCheck()">Vote</button>
+    <p id="checkResult"></p>
 
-<br><br>
+    <br><br>
 
-<label for="rand_num">Enter numbers separated by commas:</label>
-<input type="text" id="rand_num" name="rand_num" value="3,5,1,8,2">
-<button onclick="max_min()">Get Max/Min</button>
-<p>Max: <span id="maxResult"></span></p>
-<p>Min: <span id="minResult"></span></p>
-<br><br>
+    <label for="rand_num">Enter numbers separated by commas:</label>
+    <input type="text" id="rand_num" name="rand_num" value="3,5,1,8,2">
+    <button onclick="max_min()">Get Max/Min</button>
+    <p>Max: <span id="maxResult"></span></p>
+    <p>Min: <span id="minResult"></span></p>
+    <br><br>
 
-<label for="score">Enter Exam Score:</label>
-<input type="text" id="score" name="score">
-<button onclick="getGrade()">Get Grade</button>
-<p>Grade: <span id="grade"></span></p>
-<br><br>
+    <label for="score">Enter Exam Score:</label>
+    <input type="text" id="score" name="score">
+    <button onclick="getGrade()">Get Grade</button>
+    <p>Grade: <span id="grade"></span></p>
+    <br><br>
 
-<label for="cmd">Enter "on" or "off":</label>
-<input type="text" id="cmd" name="cmd">
-<button onclick="toggleBulb()">submit Cmd</button>
+    <label for="cmd">Enter "on" or "off":</label>
+    <input type="text" id="cmd" name="cmd">
+    <button onclick="toggleBulb()">submit Cmd</button>
 
-<img id="myImage" src="/w3schools_js/img/pic_bulboff.gif" style="width:100px">
-<br><br>
+    <img id="myImage" src="/w3schools_js/img/pic_bulboff.gif" style="width:100px">
+    <br><br>
 
+    <button onclick="changeBackgroundColor()">Change Background Color</button>
 
-<script src="script.js"></script>
-<script src="main.js"></script>
+    <p>Convert string to lower case:</p>
+
+    <button onclick="lowercase()">Lower Case</button>
+    <button onclick="uppercase()">Uppercase</button>
+    <p id="demo_">Hello World!</p>
+    <br><br>
+
+    <script src="script.js"></script>
+    <script src="main.js"></script>
 </body>
+
 </html>

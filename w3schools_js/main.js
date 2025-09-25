@@ -1,6 +1,6 @@
 // console.log("My First Javascript");
 
-let x,y,z;
+let x, y, z;
 x = 5;
 y = 6;
 z = x + y;
@@ -41,7 +41,7 @@ cars.push("Audi");
 
 // Constant Objects
 // You can create a const object:
-const car = {type:"Fiat", model:"500", color:"white"};
+const car = { type: "Fiat", model: "500", color: "white" };
 // console.log(car);
 
 
@@ -56,21 +56,21 @@ car.owner = "Johnson";
 
 
 // Constructor Function for Person objects
-function Person(first, last, age, eye) {
+function Person(first, first, age, eye) {
   this.firstName = first;
-  this.lastName = last;
+  this.firstName = first;
   this.age = age;
   this.eyeColor = eye;
-  this.fullName = function() {
-    return this.firstName + " " + this.lastName;
+  this.fullName = function () {
+    return this.firstName + " " + this.firstName;
   };
 }
 
 // Create a Person object
 const myFather = new Person("John", "Doe", 50, "blue");
 const myMother = new Person("Sally", "Rally", 48, "green");
-// console.log("My father is " + myFather.firstName + " " + myFather.lastName + ".");
-// console.log("My mother is " + myMother.firstName + " " + myMother.lastName + ".");
+// console.log("My father is " + myFather.firstName + " " + myFather.firstName + ".");
+// console.log("My mother is " + myMother.firstName + " " + myMother.firstName + ".");
 
 
 // Display age
@@ -101,7 +101,7 @@ rand_num = [3, 5, 7, 34, 2, 89, 2, 5, 90, 23];
 // console.log(Math.max(...rand_num));
 // console.log(Math.min(...rand_num));
 
-let xy = 1234567890123456789012345n;  
+let xy = 1234567890123456789012345n;
 // console.log(typeof xy);  // bigint
 
 const x1 = Symbol("x");
@@ -126,7 +126,7 @@ switch (date) {
     day = "Monday";
     break;
   case 2:
-     day = "Tuesday";
+    day = "Tuesday";
     break;
   case 3:
     day = "Wednesday";
@@ -179,41 +179,47 @@ switch (true) {
 
 if (score >= 90 && score <= 100) {
   grade = "A";
-} else if (score >= 80 && score < 90){
+} else if (score >= 80 && score < 90) {
   grade = "B";
-} else if (score >= 70 && score < 80){
+} else if (score >= 70 && score < 80) {
   grade = "C";
-} else if (score >= 60 && score < 70){
+} else if (score >= 60 && score < 70) {
   grade = "D";
-} else if (score >= 50 && score < 60){
+} else if (score >= 50 && score < 60) {
   grade = "E";
-} else if (score >= 0 && score < 50){
+} else if (score >= 0 && score < 50) {
   grade = "F";
-} else{
+} else {
   grade = "Invalid score";
 }
 
 // console.log(`Your grade is ${grade}.`);
 
 
-function toggleBulb() {
-  let bulbOn = false;
+let bulbOn = false;
 
-  if (bulbOn != true){
-    console.log("Bulb is off")
-    bulbOn = false
-  } else if (bulbOn) {
-    console.log("Bulb is on");
-    bulbOn = true
-  }
-} 
+if (bulbOn != true) {
+  // console.log("Bulb is off")
+  bulbOn = false
+} else if (bulbOn) {
+  // console.log("Bulb is on");
+  bulbOn = true
+}
 
-// toggleBulb()
 
 // let i;
 // for (i = 0; i < 10; i++) {
 //   console.log(i);
 // }
+
+for (let i = -1; i >= -5; i--) {
+  // console.log(i);
+}
+
+for (let i = 1; i <= 5; i++) {
+  // console.log(i);
+}
+
 
 // For loop that increments by 2
 let i;
@@ -225,7 +231,7 @@ const car_brands = ["volvo", "mazda", "toyota", "lexus", "ferarri", "bugatti"]
 // console.log(car_brands);
 
 let car_brand_list = "";
-for (let i = 0; i < car_brands.length; i++){
+for (let i = 0; i < car_brands.length; i++) {
   car_brand_list += `${car_brands[i]}\n`
 }
 // console.log(car_brand_list);
@@ -255,16 +261,117 @@ a = 1;
 while (true) {
   // console.log(a);
 
- if (a >= 20) {
-   break;
- }
+  if (a >= 20) {
+    break;
+  }
 
-  a ++;
+  a++;
 }
 
-b =  3
-c = "3"
+let bc = 3
+let cd = "3"
 
-console.log(b == c);
-console.log(b === c);
+// console.log(bc == cd);
+// console.log(bc === cd);
 
+let fruit_ = "Apple";
+// console.log(fruit_.slice(0, 4));
+
+for (let i = 1; i <= 12; i++) {
+  // console.log(`--- Table ${i} ---`);
+  for (let j = 1; j <= 12; j++) {
+    // console.log(`${i} * ${j} = ${i * j}`);
+  }
+}
+
+function fullName() {
+  let fullName = "Emmanuel Ayelabola";
+
+  fullName = fullName.trim().split(" ");
+  let firstName = fullName[0];
+  let lastName = fullName[1];
+
+  // console.log(`Hi ${firstName}.`);
+}
+
+// fullName()
+
+let symbol_ = "*";
+
+for (let i = 1; i <= 5; i++) {
+  // console.log(symbol_.repeat(i));
+}
+
+// Print a 5 by 5 square of asterisks
+let square = "";
+for (let i = 0; i < 5; i++) {
+  for (let j = 0; j < 5; j++) {
+    square += "*";
+  }
+  square += "\n";
+}
+// console.log(square);
+
+let xyz = 999_999_999_999_999_999
+// console.log(xyz);
+// console.log(typeof xyz);
+
+// let x = "100";
+// let y = "10";
+// let z = x / y;
+
+// console.log(z);  // 10
+
+// let w = x + y;
+// console.log(w);  // 10010
+
+// let b = x * y;
+// console.log(b);  // 1000
+
+// let j = x - y;
+// console.log(j);  // 90
+
+function arrayReverse(array) {
+  const emptyArray = []
+  for (let i = -1; i >= -array.length; i--) {
+    emptyArray.push(array.at(i));
+  }
+
+  console.log(emptyArray);
+}
+
+// arrayReverse([1,2,3,4,5,6,7])
+
+function swapFirstNlast(array) {
+  let last = array[0];
+  last = array.at(-1);
+
+  let first = array[array.length - 1];
+  first = array.at(-array.length);
+
+  array[0] = last
+  array[array.length - 1] = first
+  console.log(array);
+}
+
+// swapFirstNlast([1, 3, 4, 5])
+
+let hrgfdgf = 500;
+let sannfjje = Number(500);
+let ueyruje = new Number(500);
+// console.log(typeof sannfjje);
+// console.log(typeof ueyruje);
+
+// console.log(sannfjje == ueyruje);
+// console.log(sannfjje === ueyruje);
+
+// console.log(sannfjje == hrgfdgf);
+// console.log(sannfjje === hrgfdgf);
+
+let xu = 9.656;
+
+// console.log(xu.toFixed());  // 10
+// console.log(xu.toFixed(0));  // 10
+// console.log(xu.toFixed(2));  // 9.66
+// console.log(xu.toFixed(4));  // 9.6560
+// console.log(xu.toFixed(6));  // 9.656000

@@ -533,14 +533,16 @@ This is how it works:
 - If there is a match, the associated block of code is executed.
 - If there is no match, no code is executed.
 
-```javascript
 Example
+
 The getDay() method returns the weekday as a number between 0 and 6.
 
 (Sunday=0, Monday=1, Tuesday=2 ..)
 
 This example uses the weekday number to calculate the weekday name:
 
+```javascript
+let day;
 switch (new Date().getDay()) {
   case 0:
     day = "Sunday";
@@ -566,6 +568,8 @@ switch (new Date().getDay()) {
   default:
     day = "Looking forward to the Weekend";
 }
+
+console.log(day);
 ```
 
 Note: The break keyword is crucial for preventing a "fall-through."
@@ -722,8 +726,350 @@ A label precedes a statement or a block of code.
 labelname: {
   statements
 }
+
+// ----------------------
+let text = "";
+
+loop1: for (let j = 1; j < 5; j++) {
+  loop2: for (let i = 1; i < 5; i++) {
+    if (i === 3) { break loop1; }
+    text += i + "<br>";
+  }
+}
+
+console.log(text);
 ```
 
 Labeled Break
 Syntax
 `break labelname;`
+
+### The Continue Statement
+
+The continue statement skips the current iteration in a loop.
+The remaining code in the iteration is skipped and processing moves to the next iteration.
+
+Note: break and continue are the only JavaScript statements that can "jump out of" a code block.
+
+## JavaScript Strings
+
+Strings are for storing text
+Strings are written with quotes either single quote or double quote.
+
+```javascript
+let carName1 = "Volvo XC60";  // Double quotes
+let carName2 = 'Volvo XC60';  // Single quotes
+```
+
+Note: Strings created with single or double quotes work the same. There is no difference between the two.
+
+### Quotes Inside Quotes
+
+You can use quotes inside a string, as long as they don't match the quotes surrounding the string:
+
+Example
+
+```javascript
+let answer1 = "It's alright";
+let answer2 = "He is called 'Johnny'";
+let answer3 = 'He is called "Johnny"';
+```
+
+## Template Strings
+
+Templates are strings enclosed in backticks (`This is a template string`).
+
+Templates allow single and double quotes inside a string:
+
+Example
+
+```javascript
+let text = `He's often called "Johnny"`;
+console.log(text);
+```
+
+### String Length
+
+To find the length of a string, use the built-in length property:
+
+Example
+
+```javascript
+let text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let length = text.length;
+console.log(length);
+```
+
+### Escape Characters in JavaScript
+
+| Code | Result | Description |
+| - | - | - |
+| \' | ' | Single quote |
+| \" | " |Double quote |
+| \\ | \ |Backslash |
+| \n | \n | New line |
+| \r | \r | Carriage return |
+| \t | \t | Horizontal Tabulator |
+| \v | \v | Vertical Tabulator |
+| \b | \b |Backspace |
+| \f |\f | Form feed |
+
+Note: The last 6 escape characters above were originally designed to control typewriters, teletypes, and fax machines. They do not make any sense in HTML.
+
+Comparing two JavaScript objects always returns false.
+
+### JavaScript String Methods
+
+Javascript strings are primitive and immutable: All string methods produce a new string without altering the original string.
+
+### String length
+
+```javascript
+let text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let length = text.length;
+console.log(length);
+```
+
+String concatenation
+
+### Extracting String Characters
+
+There are 4 methods for extracting string characters:
+
+1. The at(position) Method
+The at() method returns the character at a specified index (position) in a string.
+
+Note: The at() method is a new addition to JavaScript.
+It allows the use of negative indexes while charAt() do not.
+Now you can use myString.at(-2) instead of charAt(myString.length-2)
+
+2. The charAt(position) Method
+The charAt() method returns the character at a specified index (position) in a string:
+
+Example
+
+```javascript
+let text = "HELLO WORLD";
+let char = text.charAt(0);
+console.log(char)  // returns H
+```
+
+3. The charCodeAt(position) Method
+The charCodeAt() method returns the code of the character at a specified index in a string:
+The method returns a UTF-16 code (an integer between 0 and 65535).
+
+```javascript
+let text = "HELLO WORLD";
+let char = text.charCodeAt(0);
+console.log(char);  // returns 72
+```
+
+4. Using property access [] like in arrays
+Example
+
+```javascript
+let text = "HELLO WORLD";
+let char = text[0];
+console.log(char)  // returns H
+```
+
+String slice()
+String substring()
+String substr()
+String toUpperCase()
+String toLowerCase()
+String isWellFormed()
+String toWellFormed()
+String trim()
+String trimStart()
+String trimEnd()
+String padStart()
+String padEnd()
+String repeat()
+String replace()
+String replaceAll()
+String split()
+
+## JavaScript Numbers
+
+JavaScript has only one type of number. Numbers can be written with or without decimals.
+
+```javascript
+let x = 3.14;    // A number with decimals
+let y = 3;       // A number without decimals
+```
+
+Extra large or extra small numbers can be written with scientific (exponent) notation:
+
+Example
+
+```javascript
+let x = 123e5;    // 12300000
+let y = 123e-5;   // 0.00123
+```
+
+Javascript numbers are always double (64-bit floating point).
+
+### Integer Precision
+
+Integers (numbers without a period or exponent notation) are accurate up to 15 digits.
+
+Example
+
+```javaScript
+let x = 999999999999999;   // x will be 999999999999999
+let y = 9999999999999999;  // y will be 10000000000000000
+
+console.log(x)
+console.log(y)
+```
+
+The maximum number of decimals is 17.
+
+### Floating Precision
+
+Floating point arithmetic is not always 100% accurate:
+
+```javascript
+let x = 0.2 + 0.1;
+console.log(x);  // 0.3000000000000000
+
+// To solve the problem above, it helps to multiply and divide:
+
+let x = (0.2 * 10 + 0.1 * 10) / 10;
+console.log(x);  // 0.3
+```
+
+**WARNING !!**
+JavaScript uses the + operator for both addition and concatenation. Numbers are added. Strings are concatenated.
+
+JavaScript will try to convert strings to numbers in all numeric operations:
+
+```javascript
+let x = "100";
+let y = "10";
+let z = x / y;
+
+console.log(z);  // 10
+
+let w = x + y;
+console.log(w);  // 10010
+
+let v = x + y;
+console.log(v);  // 110
+
+let w = x * y;
+console.log(w);  // 1000
+
+let j = x - y;
+console.log(j);  // 90
+```
+
+### NaN - Not a Number
+
+NaN is a JavaScript reserved word indicating that a number is not a legal number.
+Trying to do arithmetic with a non-numeric string will result in NaN (Not a Number):
+
+Example
+
+```javascript
+let x = 100 / "Apple";
+console.log(x);  // NaN
+```
+
+However, if the string is numeric, the result will be a number:
+
+Example
+
+```javascript
+let x = 100 / "10";
+console.log(x);  // 10
+```
+
+`Note: Comparing two JavaScript objects always returns false.`
+
+### JavaScript Number Methods
+
+**Basic Methods**
+Basic number methods can be used on any number:
+
+1. The toString() Method
+The `toString()` method returns a number as a string.
+
+Example
+
+```javascript
+let x = 123;
+let y = x.toString();
+console.log(y)
+```
+
+The `toString()` method can take an optional radix argument to convert the number to a different base:
+
+Example
+
+```javascript
+let x = 123;
+let y = x.toString(2);  // Convert to binary
+console.log(y)  // 1111011
+```
+
+2. The toExponential() Method
+`toExponential()` returns a string, with a number rounded and written using exponential notation.
+A parameter defines the number of characters behind the decimal point:
+
+Example
+
+```javascript 
+let x = 9.656;
+let y = x.toExponential(2);
+console.log(y);  // 9.66e+00
+```
+
+The parameter is optional. If you don't specify it, JavaScript will not round the number.
+
+3. The toFixed() Method
+`toFixed()` returns a string, with the number written with a specified number of decimals:
+
+Example
+
+```javascript
+let x = 9.656;
+
+console.log(x.toFixed(0));  // 10
+console.log(x.toFixed(2));  // 9.66 // It's perfect for working with money.
+console.log(x.toFixed(4));  // 9.6560
+console.log(x.toFixed(6));  // 9.656000
+```
+
+4. The toPrecision() Method
+`toPrecision()` returns a string, with a number written with a specified length:
+
+Example
+
+```javaScript
+let x = 9.656;
+console.log(y = x.toPrecision());
+console.log(x.toPrecision(2));
+```
+
+5. The valueOf() Method
+`valueOf()` returns a number as a number.
+
+Example
+
+```javascript
+let x = 123;
+console.log(x.valueOf());
+```
+
+### Static Methods
+
+Static methods can only be used on Number:
+
+Number.isFinite()
+Number.isInteger()
+Number.isNan()
+Number.isSafeInteger()
+Number.parseInt()
+Number.parseFloat()
