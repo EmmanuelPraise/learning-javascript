@@ -375,3 +375,22 @@ let xu = 9.656;
 // console.log(xu.toFixed(2));  // 9.66
 // console.log(xu.toFixed(4));  // 9.6560
 // console.log(xu.toFixed(6));  // 9.656000
+
+let xty = 123456789012345678901234567890n;
+console.log(typeof xty);
+
+const carl = {
+  type:"Fiat", 
+  model:"500", 
+  color:"white"
+};
+console.table(carl);
+
+// Create an Object
+const person = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 50,
+  eyeColor: "blue"
+};
+

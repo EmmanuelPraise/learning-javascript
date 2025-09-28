@@ -1073,3 +1073,112 @@ Number.isNan()
 Number.isSafeInteger()
 Number.parseInt()
 Number.parseFloat()
+
+Converting Variables to Numbers
+There are 3 JavaScript methods that can be used to convert a variable to a number:
+
+| Method | Description |
+| - | - |
+|Number() | Returns a number converted from its argument. |
+| parseFloat() | Parses its argument and returns a floating point number |
+| parseInt() | Parses its argument and returns a whole number |
+
+### Number Object Methods
+
+These object methods belong to the Number object:
+
+| Method | Description |
+| - | - |
+| Number.isInteger() | Returns true if the argument is an integer |
+| Number.isNaN() | Returns true if the argument is NaN |
+| Number.isFinite() | Returns true if the argument is not Infinity nor NaN |
+| Number.isSafeInteger() | Returns true if the argument is a safe integer |
+| Number.parseFloat() | Converts a string to a number |
+| Number.parseInt()| Converts a string to a whole number |
+
+Number Methods Cannot be Used on Variables
+The number methods above belong to the JavaScript Number Object. These methods can only be accessed like Number.isInteger().
+Using X.isInteger() where X is a variable, will result in an error:
+TypeError X.isInteger is not a function.
+
+### JavaScript BigInt
+
+JavaScript BigInt variables are used to store big integer values that are too big to be represented by a normal JavaScript Number. JavaScript integers are only accurate up to 15 digits
+
+To create a BigInt, append n to the end of an integer or call BigInt():
+
+Example
+
+```javascript
+let x = 123456789012345678901234567890n;
+let y = BigInt("123456789012345678901234567890");
+
+console.log(x,y)
+```
+
+BigInt is the second numeric data type in JavaScript (after Number). With BigInt the total number of supported data types in JavaScript is 8:
+
+1. String
+2. Number
+3. Bigint
+4. Boolean
+5. Undefined
+6. Null
+7. Symbol
+8. Object
+
+BigInt (does not have a fixed width)
+
+## JavaScript Functions
+
+What are Functions?
+Functions are fundamental building blocks in all programming. Functions enable better code organization, modularity, and efficiency.
+
+Functions are reusable block of code designed to perform a particular task. Functions execute when they are "called" or "invoked".
+
+JavaScript Function Syntax
+
+```javascript
+function FunctionName(parameter1, parameter2, ...) {
+  // code to be executed
+}
+
+FunctionName(argument1, argument2, ...);
+```
+
+**Example**
+Function to compute the product of two numbers:
+
+```javascript
+function myFunction(p1, p2) {
+  return p1 * p2;
+}
+```
+
+### Function Invocation ()
+
+The code inside the function will execute when "something" invokes (calls) the function:
+
+- When it is invoked (called) from JavaScript code
+- When an event occurs (a user clicks a button)
+- Automatically (self invoked)
+The () operator invokes (calls) the function:
+
+Example
+Convert Fahrenheit to Celsius:
+
+```javascript
+function toCelsius(fahrenheit) {
+  return (5/9) * (fahrenheit-32);
+}
+
+let value = toCelsius(77);
+console.log(value);
+```
+
+JavaScript Objects
+An Object is a variable that can hold many variables. Objects are collections of key-value pairs, where each key (known as property names) has a value. Objects can describe anything like houses, cars, people, animals, or any other subjects.
+
+```javascript
+const car = {type:"Fiat", model:"500", color:"white"};
+```

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Flipper</title>
+    <style>
+        .btn {
+            height: 6em;
+            padding: 1.5em;
+            will-change: filter;
+            transition: filter 300ms;
+          }
+          .btn:hover {
+            filter: drop-shadow(0 0 2em #646cffaa);
+          }
+          .btn.vanilla:hover {
+            filter: drop-shadow(0 0 2em #f7df1eaa);
+          }
+    </style>
+</head>
+<body>
+    <h1>Color Flipper</h1>
+    <button id="btn">Click Me</button>
+    
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</body>
+</html>
