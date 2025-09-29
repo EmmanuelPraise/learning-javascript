@@ -1176,9 +1176,72 @@ let value = toCelsius(77);
 console.log(value);
 ```
 
-JavaScript Objects
+## JavaScript Objects
+
 An Object is a variable that can hold many variables. Objects are collections of key-value pairs, where each key (known as property names) has a value. Objects can describe anything like houses, cars, people, animals, or any other subjects.
 
 ```javascript
 const car = {type:"Fiat", model:"500", color:"white"};
 ```
+
+Objects should be declared with the const keyword.
+When an object is declared with const, you cannot later reassign it to point to a different variable.
+
+It does not make the object unchangeable. You can still modify its properties and values.
+
+You can also create an empty object, and add the properties later:
+
+```javascript
+// Create an Object
+const person = {};
+
+// Add Properties
+person.firstName = "John";
+person.lastName = "Doe";
+person.age = 50;
+person.eyeColor = "blue";
+```
+
+Objects can be created using the `new object()` keyword
+
+```javascript
+// Create an Object
+const person = new Object({
+  firstName: "John",
+  lastName: "Doe",
+  age: 50,
+  eyeColor: "blue"
+});
+```
+
+### Object Properties
+
+You can access object properties in two ways:
+
+`objectName.propertyName`
+or
+`objectName["propertyName"]`
+
+### Object Methods
+
+Object methods are actions that can be performed on objects.
+
+Object methods are function definitions stored as property values
+
+```javascript
+const person = {
+  firstName: "John",
+  lastName : "Doe",
+  id       : 5566,
+  fullName : function() {
+    return this.firstName + " " + this.lastName;
+  }
+};
+
+console.log(person.fullName());
+```
+
+In the example above, this refers to the person object:
+
+- this.firstName means the firstName property of person.
+- this.lastName means the lastName property of person.

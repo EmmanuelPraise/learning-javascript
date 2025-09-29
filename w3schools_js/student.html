@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Page</title>
+
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 20px;
+        }
+
+        img {
+            border-radius: 10px;
+        }
+
+        p {
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <div class="card-body" id="student_details"></div>
+    </div>
+
+    <script>
+        const students = [
+            {
+                image: "./img/pineapple.jpg",
+                firstname: "David",
+                lastname: "Olusanya",
+                age: 21,
+                sex: "male",
+                matricNumber: 20227483,
+                gpa1: 5.0,
+                gpa2: 4.5,
+                cgpa: function () {
+                    return (this.gpa1 + this.gpa2) / 2;
+                }
+            },
+            {
+                image: "./img/pineapple.jpg",
+                firstname: "Esther",
+                lastname: "Olusanya",
+                age: 20,
+                sex: "female",
+                matricNumber: 20227483,
+                gpa1: 3.0,
+                gpa2: 4.5,
+                cgpa: function () {
+                    return (this.gpa1 + this.gpa2) / 2;
+                }
+            },
+            {
+                image: "./img/pineapple.jpg",
+                firstname: "Matthew",
+                lastname: "John",
+                age: 18,
+                sex: "male",
+                matricNumber: 20227123,
+                gpa1: 2.2,
+                gpa2: 3.5,
+                cgpa: function () {
+                    return (this.gpa1 + this.gpa2) / 2;
+                }
+            },
+            {
+                image: "./img/pineapple.jpg",
+                firstname: "Brian",
+                lastname: "Okobe",
+                age: 22,
+                sex: "male",
+                matricNumber: 20227283,
+                gpa1: 4.5,
+                gpa2: 4.0,
+                cgpa: function () {
+                    return (this.gpa1 + this.gpa2) / 2;
+                }
+            },
+            {
+                image: "./img/pineapple.jpg",
+                firstname: "Anointing",
+                lastname: "Daodu",
+                age: 19,
+                sex: "male",
+                matricNumber: 20227473,
+                gpa1: 5.0,
+                gpa2: 4.5,
+                cgpa: function () {
+                    return (this.gpa1 + this.gpa2) / 2;
+                }
+            },
+            {
+                image: "./img/pineapple.jpg",
+                firstname: "Taooma",
+                lastname: "Asake",
+                age: 21,
+                sex: "male",
+                matricNumber: 20227487,
+                gpa1: 5.0,
+                gpa2: 4.5,
+                cgpa: function () {
+                    return (this.gpa1 + this.gpa2) / 2;
+                }
+            }
+        ];
+
+        let details = ""
+
+        for (let index = 0; index < students.length; index++) {
+
+            details += `
+                <!-- <img src="${students[index].image}" alt="student image"> -->
+                <p>Student Name: ${students[index].firstname} ${students[index].lastname}</p>
+                <p>Age: ${students[index].age}</p>
+                <p>Sex: ${students[index].sex}</p>
+                <p>Matric Number: ${students[index].matricNumber}</p>
+                <p>Previous GPA: ${students[index].gpa1}</p>
+                <p>Current GPA: ${students[index].gpa2}</p>
+                <p>CGPA: ${students[index].cgpa()}</p>
+    
+                <hr>
+            `
+        }
+
+        document.getElementById("student_details").innerHTML = details;
+
+
+    </script>
+
+</body>
+
+</html>

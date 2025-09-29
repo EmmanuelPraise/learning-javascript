@@ -377,14 +377,14 @@ let xu = 9.656;
 // console.log(xu.toFixed(6));  // 9.656000
 
 let xty = 123456789012345678901234567890n;
-console.log(typeof xty);
+// console.log(typeof xty);
 
 const carl = {
-  type:"Fiat", 
-  model:"500", 
-  color:"white"
+  type: "Fiat",
+  model: "500",
+  color: "white"
 };
-console.table(carl);
+// console.table(carl);
 
 // Create an Object
 const person = {
@@ -394,3 +394,69 @@ const person = {
   eyeColor: "blue"
 };
 
+const student = {};
+
+student.name = "Emmanuel";
+student.age = 20;
+student.gpa = 4.0;
+
+// console.log(student);
+
+const students = [
+  {
+    name: "Emmanuel",
+    age: 20,
+    gpa1: 4.0,
+    gpa2: 3.8,
+    cgpa: function () {
+      return (this.gpa1 + this.gpa2) / 2;
+    }
+  },
+  {
+    name: "Sarah",
+    age: 19,
+    gpa1: 3.5,
+    gpa2: 3.0,
+    cgpa: function () {
+      return (this.gpa1 + this.gpa2) / 2;
+    }
+  },
+  {
+    firstname: "David",
+    lastname: "Olusanya",
+    age: 21,
+    sex: "male",
+    matricNumber: 20227483,
+    gpa1: 5.0,
+    gpa2: 4.5,
+    cgpa: function () {
+      return (this.gpa1 + this.gpa2) / 2;
+    }
+  }
+];
+
+console.table(students);
+
+// students.push(student);
+
+// console.table(students);
+
+// console.log(typeof students);
+
+for (let i = 0; i < students.length; i++) {
+  let message =
+    `My name is ${students[i].name}, I'm ${students[i].age} years old, and I have a cgpa of ${students[i].cgpa()}`;
+
+  console.log(message);
+}
+
+const person1 = {
+  firstName: "John",
+  lastName: "Doe",
+  id: 5566,
+  fullName: function () {
+    return this.firstName + " " + this.lastName;
+  }
+};
+
+console.log(person1.fullName());
