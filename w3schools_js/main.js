@@ -460,3 +460,6 @@ const person1 = {
 };
 
 console.log(person1.fullName());
+
+const d = new Date("2022-03-25");
+console.log(d);

@@ -1245,3 +1245,123 @@ In the example above, this refers to the person object:
 
 - this.firstName means the firstName property of person.
 - this.lastName means the lastName property of person.
+
+### Object Constructor Functions
+
+Sometimes we need to create many objects of the same type. to create an object type we use an object constructor function.
+It is considered good practice to name constructor functions with an upper-case first letter.
+
+Object Type Person
+
+```javascript
+function Person(first, last, age, eye) {
+  this.firstName = first;
+  this.lastName = last;
+  this.age = age;
+  this.eyeColor = eye;
+}
+```
+
+Everything in javascript is an object except primitives.
+
+## JavaScript Dates
+
+JavaScript Date Objects let us work with dates
+
+```javascript
+const d = new Date("2022-03-25");
+console.log(d);
+```
+
+Note: Date objects are static. The "clock" is not "running". The computer clock is ticking, date objects are not.
+
+### Creating Date Objects
+
+Date objects are created with the new Date() constructor.
+There are 9 ways to create a new date object:
+
+```javascript
+new Date()  // creates a date object with the current date and time
+
+new Date(date string)  // creates a date object from a date string
+
+const d = new Date("October 13, 2014 11:13:00");
+console.log(d)
+
+const d = new Date("2022-03-25");
+console.log(d)
+
+new Date(year,month)
+new Date(year,month,day)
+new Date(year,month,day,hours)
+new Date(year,month,day,hours,minutes)
+new Date(year,month,day,hours,minutes,seconds)
+new Date(year,month,day,hours,minutes,seconds,ms)
+
+new Date(milliseconds)
+```
+
+new Date(year, month, ...)
+new Date(year, month, ...) creates a date object with a specified date and time.
+
+7 numbers specify year, month, day, hour, minute, second, and millisecond (in that order):
+
+Example
+
+```javascript
+const d = new Date(2018, 11, 24, 10, 33, 30, 0);
+console.log(d)
+```
+
+When you display a date object in HTML, it is automatically converted to a string, with the toString() method.
+
+Example
+
+```javascript
+const d = new Date();
+console.log(d.toString());
+```
+
+The toDateString() method converts a date to a more readable format:
+
+Example
+
+```javascript
+const d = new Date();
+console.log(d.toDateString());
+```
+
+### JavaScript Date Input
+
+There are generally 3 types of JavaScript date input formats:
+
+| Type | Example |
+| - | - |
+| ISO Date | "2015-03-25" (The International Standard) |
+| Short Date | "03/25/2015" |
+| Long Date | "Mar 25 2015" or "25 Mar 2015" |
+
+The ISO format follows a strict standard in JavaScript.
+
+### Date Get Methods
+
+| Method | Description |
+| - | - |
+| getFullYear() | Get year as a four digit number (yyyy) |
+| getMonth() | Get month as a number (0-11) |
+| getDate() | Get day as a number (1-31) |
+| getDay() | Get weekday as a number (0-6) |
+| getHours() | Get hour (0-23) |
+| getMinutes() | Get minute (0-59) |
+| getSeconds() | Get second (0-59) |
+| getMilliseconds() | Get millisecond (0-999) |
+| getTime() | Get time (milliseconds since January 1, 1970) |
+
+```javascript
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+const d = new Date("2021-03-25");
+let month = months[d.getMonth()];
+console.log(month);
+```
+
