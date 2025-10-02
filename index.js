@@ -81,6 +81,20 @@ console.table(employees);
 
 // 2. Write a function that accept 2 parameters 'date from' and 'date to'.
 
+// function filterEmployeesByDate(fromDate, toDate) {
+//     const from = new Date(fromDate);
+//     const to = new Date(toDate);
+//     const employmentDate = new Date(employee.employment_date);
+
+//     if (employmentDate >= from && employmentDate <= to) {
+        
+//       }
+
+//     return employees.filter(employee => {
+//         return ;
+//     });
+// }
+
 // 3. write function that returns the array of employee with invalid email address.
 
 // 4. Write a function that return employee with highest and lowest pay.

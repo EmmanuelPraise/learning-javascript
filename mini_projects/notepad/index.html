@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="sticky-note.png" type="image/x-icon">
+    <title>Keep Notes</title>
+</head>
+
+<body class="dark:bg-[#202124] bg-[#A6A6A7] min-h-screen dark:text-[#A6A6A7] text-[#202124] font-sans p-8">
+    <div class="container flex flex-row items-center gap-2">
+        <img src="sticky-note.png" alt="Sticky Note" class="w-10 h-10 mb-4">
+        <h1 class="text-4xl font-bold mb-4">Keep Notes</h1>
+    </div>
+
+    <section class="new-note-section mt-6">
+        <h2 class="text-xl font-bold mb-4">New Note</h2>
+        <div class="new-note-card dark:bg-[#202124] p-4 rounded-lg border dark:border-[#A6A6A7] shadow-lg">
+            <div id="note-title" class="text-3xl font-bold mb-2 border-0 outline-none" contenteditable="true">
+                Title
+            </div>
+            <div id="note-text" class="text-xl border-0 outline-none" contenteditable="true">
+                Take a note...
+            </div>
+
+            <div class="flex justify-end gap-4 mt-4">
+                <button class="dark:bg-[#202124]  py-2 px-4 border dark:border-[#A6A6A7] rounded-lg">
+                    Add Note
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="notes-section mt-12">
+        <h2 class="text-xl font-bold mb-4">Your Notes</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Note cards will be dynamically added here -->
+            <div class="note-card dark:bg-[#202124] p-4 rounded-lg border dark:border-[#A6A6A7] shadow-lg">
+                <div class="note-title text-2xl font-bold mb-2">Sample Note Title</div>
+                <div class="note-text text-lg">This is a sample note text. You can edit or delete this note.</div>
+                <div class="flex justify-end gap-4 mt-4">
+                    <button class="dark:bg-[#202124] py-2 px-4 border dark:border-[#A6A6A7] rounded-lg">
+                        Edit
+                    </button>
+                    <button class="dark:bg-[#202124] text-[#FF001B] py-2 px-4 border border-[#FF001B] rounded-lg">
+                        Delete
+                    </button>
+                </div>
+            </div>
+            <div class="note-card dark:bg-[#202124] p-4 rounded-lg border dark:border-[#A6A6A7] shadow-lg">
+                <div class="note-title text-2xl font-bold mb-2">Sample Note Title</div>
+                <div class="note-text text-lg">This is a sample note text. You can edit or delete this note.</div>
+                <div class="flex justify-end gap-4 mt-4">
+                    <button class="dark:bg-[#202124] py-2 px-4 border dark:border-[#A6A6A7] rounded-lg">
+                        Edit
+                    </button>
+                    <button class="dark:bg-[#202124] text-[#FF001B] py-2 px-4 border border-[#FF001B] rounded-lg">
+                        Delete
+                    </button>
+                </div>
+            </div>
+            <div class="note-card dark:bg-[#202124] p-4 rounded-lg border dark:border-[#A6A6A7] shadow-lg">
+                <div class="note-title text-2xl font-bold mb-2">Sample Note Title</div>
+                <div class="note-text text-lg">This is a sample note text. You can edit or delete this note.</div>
+                <div class="flex justify-end gap-4 mt-4">
+                    <button class="dark:bg-[#202124] py-2 px-4 border dark:border-[#A6A6A7] rounded-lg">
+                        Edit
+                    </button>
+                    <button class="dark:bg-[#202124] text-[#FF001B] py-2 px-4 border border-[#FF001B] rounded-lg">
+                        Delete
+                    </button>
+                </div>
+            </div>
+            <div class="note-card dark:bg-[#202124] p-4 rounded-lg border dark:border-[#A6A6A7] shadow-lg">
+                <div class="note-title text-2xl font-bold mb-2">Sample Note Title</div>
+                <div class="note-text text-lg">This is a sample note text. You can edit or delete this note.</div>
+                <div class="flex justify-end gap-4 mt-4">
+                    <button class="dark:bg-[#202124] py-2 px-4 border dark:border-[#A6A6A7] rounded-lg">
+                        Edit
+                    </button>
+                    <button class="dark:bg-[#202124] text-[#FF001B] py-2 px-4 border border-[#FF001B] rounded-lg">
+                        Delete
+                    </button>
+                </div>
+            </div>
+            <div class="note-card dark:bg-[#202124] p-4 rounded-lg border dark:border-[#A6A6A7] shadow-lg">
+                <div class="note-title text-2xl font-bold mb-2">Sample Note Title</div>
+                <div class="note-text text-lg">This is a sample note text. You can edit or delete this note.</div>
+                <div class="flex justify-end gap-4 mt-4">
+                    <button class="dark:bg-[#202124] py-2 px-4 border dark:border-[#A6A6A7] rounded-lg">
+                        Edit
+                    </button>
+                    <button class="dark:bg-[#202124] text-[#FF001B] py-2 px-4 border border-[#FF001B] rounded-lg">
+                        Delete
+                    </button>
+                </div>
+            </div>
+            <div class="note-card dark:bg-[#202124] p-4 rounded-lg border dark:border-[#A6A6A7] shadow-lg">
+                <div class="note-title text-2xl font-bold mb-2">Sample Note Title</div>
+                <div class="note-text text-lg">This is a sample note text. You can edit or delete this note.</div>
+                <div class="flex justify-end gap-4 mt-4">
+                    <button class="dark:bg-[#202124] py-2 px-4 border dark:border-[#A6A6A7] rounded-lg">
+                        Edit
+                    </button>
+                    <button class="dark:bg-[#202124] text-[#FF001B] py-2 px-4 border border-[#FF001B] rounded-lg">
+                        Delete
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
