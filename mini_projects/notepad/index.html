@@ -17,98 +17,27 @@
     <section class="new-note-section mt-6">
         <h2 class="text-xl font-bold mb-4">New Note</h2>
         <div class="new-note-card dark:bg-[#202124] p-4 rounded-lg border dark:border-[#A6A6A7] shadow-lg">
-            <div id="note-title" class="text-3xl font-bold mb-2 border-0 outline-none" contenteditable="true">
-                Title
+            <div id="new-note-title" class="text-3xl font-bold mb-2 border-0 outline-none" contenteditable="true">
+                Edit Title...
             </div>
-            <div id="note-text" class="text-xl border-0 outline-none" contenteditable="true">
-                Take a note...
+            <div id="new-note-text" class="text-xl border-0 outline-none" contenteditable="true">
+                Edit Text...
             </div>
 
             <div class="flex justify-end gap-4 mt-4">
-                <button class="dark:bg-[#202124]  py-2 px-4 border dark:border-[#A6A6A7] rounded-lg">
+                <button class="dark:bg-[#202124]  py-2 px-4 border dark:border-[#A6A6A7] rounded-lg"
+                    onclick="addNote(); displayNotes();">
                     Add Note
                 </button>
             </div>
         </div>
     </section>
 
-    <section class="notes-section mt-12">
+    <section id="notes-section" class=" mt-12">
         <h2 class="text-xl font-bold mb-4">Your Notes</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="notes-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
             <!-- Note cards will be dynamically added here -->
-            <div class="note-card dark:bg-[#202124] p-4 rounded-lg border dark:border-[#A6A6A7] shadow-lg">
-                <div class="note-title text-2xl font-bold mb-2">Sample Note Title</div>
-                <div class="note-text text-lg">This is a sample note text. You can edit or delete this note.</div>
-                <div class="flex justify-end gap-4 mt-4">
-                    <button class="dark:bg-[#202124] py-2 px-4 border dark:border-[#A6A6A7] rounded-lg">
-                        Edit
-                    </button>
-                    <button class="dark:bg-[#202124] text-[#FF001B] py-2 px-4 border border-[#FF001B] rounded-lg">
-                        Delete
-                    </button>
-                </div>
-            </div>
-            <div class="note-card dark:bg-[#202124] p-4 rounded-lg border dark:border-[#A6A6A7] shadow-lg">
-                <div class="note-title text-2xl font-bold mb-2">Sample Note Title</div>
-                <div class="note-text text-lg">This is a sample note text. You can edit or delete this note.</div>
-                <div class="flex justify-end gap-4 mt-4">
-                    <button class="dark:bg-[#202124] py-2 px-4 border dark:border-[#A6A6A7] rounded-lg">
-                        Edit
-                    </button>
-                    <button class="dark:bg-[#202124] text-[#FF001B] py-2 px-4 border border-[#FF001B] rounded-lg">
-                        Delete
-                    </button>
-                </div>
-            </div>
-            <div class="note-card dark:bg-[#202124] p-4 rounded-lg border dark:border-[#A6A6A7] shadow-lg">
-                <div class="note-title text-2xl font-bold mb-2">Sample Note Title</div>
-                <div class="note-text text-lg">This is a sample note text. You can edit or delete this note.</div>
-                <div class="flex justify-end gap-4 mt-4">
-                    <button class="dark:bg-[#202124] py-2 px-4 border dark:border-[#A6A6A7] rounded-lg">
-                        Edit
-                    </button>
-                    <button class="dark:bg-[#202124] text-[#FF001B] py-2 px-4 border border-[#FF001B] rounded-lg">
-                        Delete
-                    </button>
-                </div>
-            </div>
-            <div class="note-card dark:bg-[#202124] p-4 rounded-lg border dark:border-[#A6A6A7] shadow-lg">
-                <div class="note-title text-2xl font-bold mb-2">Sample Note Title</div>
-                <div class="note-text text-lg">This is a sample note text. You can edit or delete this note.</div>
-                <div class="flex justify-end gap-4 mt-4">
-                    <button class="dark:bg-[#202124] py-2 px-4 border dark:border-[#A6A6A7] rounded-lg">
-                        Edit
-                    </button>
-                    <button class="dark:bg-[#202124] text-[#FF001B] py-2 px-4 border border-[#FF001B] rounded-lg">
-                        Delete
-                    </button>
-                </div>
-            </div>
-            <div class="note-card dark:bg-[#202124] p-4 rounded-lg border dark:border-[#A6A6A7] shadow-lg">
-                <div class="note-title text-2xl font-bold mb-2">Sample Note Title</div>
-                <div class="note-text text-lg">This is a sample note text. You can edit or delete this note.</div>
-                <div class="flex justify-end gap-4 mt-4">
-                    <button class="dark:bg-[#202124] py-2 px-4 border dark:border-[#A6A6A7] rounded-lg">
-                        Edit
-                    </button>
-                    <button class="dark:bg-[#202124] text-[#FF001B] py-2 px-4 border border-[#FF001B] rounded-lg">
-                        Delete
-                    </button>
-                </div>
-            </div>
-            <div class="note-card dark:bg-[#202124] p-4 rounded-lg border dark:border-[#A6A6A7] shadow-lg">
-                <div class="note-title text-2xl font-bold mb-2">Sample Note Title</div>
-                <div class="note-text text-lg">This is a sample note text. You can edit or delete this note.</div>
-                <div class="flex justify-end gap-4 mt-4">
-                    <button class="dark:bg-[#202124] py-2 px-4 border dark:border-[#A6A6A7] rounded-lg">
-                        Edit
-                    </button>
-                    <button class="dark:bg-[#202124] text-[#FF001B] py-2 px-4 border border-[#FF001B] rounded-lg">
-                        Delete
-                    </button>
-                </div>
-            </div>
 
         </div>
 
