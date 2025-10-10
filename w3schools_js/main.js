@@ -435,7 +435,7 @@ const students = [
   }
 ];
 
-console.table(students);
+// console.table(students);
 
 // students.push(student);
 
@@ -447,7 +447,7 @@ for (let i = 0; i < students.length; i++) {
   let message =
     `My name is ${students[i].name}, I'm ${students[i].age} years old, and I have a cgpa of ${students[i].cgpa()}`;
 
-  console.log(message);
+  // console.log(message);
 }
 
 const person1 = {
@@ -459,7 +459,44 @@ const person1 = {
   }
 };
 
-console.log(person1.fullName());
+// console.log(person1.fullName());
 
 const d = new Date("2022-03-25");
-console.log(d);
+// console.log(d);
+
+const fruits = ["Apple", "Banana", "Orange", "Apple", "Mango", "Kiwi"];
+fruits.forEach((fruit) => {
+  // console.log(fruit);
+});
+ 
+// for (let i = 0; i < fruits.length; i++) {
+//   console.log(fruits[i]);
+// }
+
+// console.log(fruits.copyWithin(3,0)); // at index 3, copy from index 0 and replace
+
+// console.log(fruits.copyWithin(4,0,1)); // at index 5, copy from index 0 to index 1 and replace
+
+// console.log(fruits.splice(3,1)); // remove 1 element at index 3
+
+// ["Banana", "Orange", "Apple", "Mango", "Kiwi"];
+// console.log(fruits.splice(2,0,"Lemon","Pineapple")); // at index 2, remove 0 element and add "Lemon" and "Pineapple"
+// console.log(fruits);
+
+// console.log(fruits.splice(2,2,"Lemon","Pineapple")); // at index 2, remove 2 elements and add "Lemon" and "Pineapple"
+
+// console.log(fruits.splice(2,2)); // at index 2, remove 2 elements
+// console.log(fruits);
+
+// const citrus = fruits.slice(1);
+// console.log(citrus);
+
+// const citrus = fruits.slice(1, 3);
+// console.log(citrus)
+
+for (i = 0; i < fruits.length; i++) {
+    // console.log(`${i + 1}. ${fruits[i]}`);
+}
+
+let position = fruits.indexOf("Apple", 1) + 1;
+console.log(position);

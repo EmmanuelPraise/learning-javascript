@@ -1393,4 +1393,200 @@ console.log(cars)
 
 Note: It is a common practice to declare arrays with the const keyword.
 
+```javascript
+const cars = ["Saab", "Volvo", "BMW"];
+let car = cars[0];
+console.log(car);
+```
 
+Note: Array indexes start with 0. [0] is the first element. [1] is the second element.
+
+### Basic Array Methods
+
+Array length
+Array toString()
+Array at()
+Array join()
+Array pop()
+Array push()
+Array shift()
+Array unshift()
+Array delete()
+Array concat()
+Array copyWithin()
+Array flat()
+Array slice()
+Array splice()
+Array toSpliced()
+
+### Popping and Pushing
+
+When you work with arrays, it is easy to remove elements and add new elements.
+
+This is what popping and pushing is:
+
+Popping items out of an array, or pushing items into an array.
+
+### JavaScript Array pop()
+
+The pop() method removes the last element from an array:
+
+Example
+
+```javascript
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.pop();
+console.log(fruits);
+```
+
+JavaScript Array push()
+The push() method adds a new element to an array (at the end):
+
+Example
+
+```javascript
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.push("Kiwi");
+console.log(fruits);
+```
+
+Note:
+
+- The copyWithin() method overwrites the existing values.
+- The copyWithin() method does not add items to the array.
+- The copyWithin() method does not change the length of the array.
+
+### Splicing and Slicing Arrays
+
+The `splice()` method adds new items to an array.
+The `slice()` method slices out a piece of an array.
+
+#### JavaScript Array splice()
+
+The `splice()` method can be used to add new items to an array:
+
+Example
+
+```javascript
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.splice(2, 0, "Lemon", "Kiwi");
+console.log(fruits);
+```
+
+The first parameter (2) defines the position where new elements should be added (spliced in).
+
+The second parameter (0) defines how many elements should be removed.
+
+The rest of the parameters ("Lemon" , "Kiwi") define the new elements to be added.
+
+The `splice()` method returns an array with the deleted items:
+
+#### Using `splice()` to Remove Elements
+
+With clever parameter setting, you can use `splice()` to remove elements without leaving "holes" in the array:
+
+Example
+
+```javascript
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.splice(0, 1);
+console.log(fruits);
+```
+
+The first parameter (0) defines the position where new elements should be added (spliced in).
+
+The second parameter (1) defines how many elements should be removed.
+
+The rest of the parameters are omitted. No new elements will be added.
+
+#### JavaScript Array toSpliced()
+
+Array `toSpliced()` method as a safe way to splice an array without altering the original array.
+
+The difference between the new `toSpliced()` method and the old `splice()` method is that the new method creates a new array, keeping the original array unchanged, while the old method altered the original array.
+
+Example
+
+```javascript
+const months = ["Jan", "Feb", "Mar", "Apr"];
+const spliced = months.toSpliced(0, 1);
+console.log(spliced);
+```
+
+#### JavaScript Array slice()
+
+The `slice()` method slices out a piece of an array into a new array:
+
+Example
+Slice out a part of an array starting from array element 1 ("Orange"):
+
+```javascript
+const fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+const citrus = fruits.slice(1);
+console.log(citrus);
+```
+
+Note: The slice() method creates a new array. The slice() method does not remove any elements from the source array.
+
+Example
+Slice out a part of an array starting from array element 3 ("Apple"):
+
+```javascript
+const fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+const citrus = fruits.slice(3);
+console.log(citrus)
+```
+
+The `slice()` method can take two arguments like slice(1, 3).
+
+The method then selects elements from the start argument, and up to (but not including) the end argument.
+
+Example
+
+```javascript
+const fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+const citrus = fruits.slice(1, 3);
+console.log(citrus)
+```
+
+**Note: All JavaScript objects have a `toString()` method.**
+
+### JavaScript Array Search
+
+#### JavaScript Array `indexOf()`
+
+The `indexOf()` method searches an array for an element value and returns its position.
+
+Note: The first item has position 0, the second item has position 1, and so on.
+
+Example
+Search an array for the item "Apple":
+
+```javascript
+const fruits = ["Apple", "Orange", "Apple", "Mango"];
+let position = fruits.indexOf("Apple") + 1;
+console.log(position);
+```
+
+**Syntax: `array.indexOf(item, start)`**
+
+item - Required. The item to search for.
+start - Optional. Where to start the search. Negative values will start at the given position counting from the end, and search to the end.
+
+`Array.indexOf()` returns -1 if the item is not found.
+
+If the item is present more than once, it returns the position of the first occurrence.
+
+#### JavaScript Array lastIndexOf()
+
+`Array.lastIndexOf()` is the same as Array.indexOf(), but returns the position of the last occurrence of the specified element.
+
+Example
+Search an array for the item "Apple":
+
+```javascript
+const fruits = ["Apple", "Orange", "Apple", "Mango"];
+let position = fruits.lastIndexOf("Apple") + 1;
+
+console.log(position);
+```
