@@ -498,5 +498,46 @@ for (i = 0; i < fruits.length; i++) {
     // console.log(`${i + 1}. ${fruits[i]}`);
 }
 
-let position = fruits.indexOf("Apple", 1) + 1;
-console.log(position);
+// let position = fruits.indexOf("Apple", 1) + 1;
+// console.log(position);
+
+// console.log(fruits)
+// let position = fruits.lastIndexOf("Apple");
+// console.log(position);
+
+
+// console.log(fruits.includes("Pear")); // false
+// console.log(fruits.includes("Mango")); // true
+
+// console.log(fruits.find((fruit) => fruit === "Mango")); // Mango
+
+// console.log(...fruits);
+
+
+const numbers = [4, 9, 16, 25, 29];
+// let first = numbers.find((num) => num > 18);
+
+// console.log(first);
+
+let first = numbers.findIndex((num) => num > 18);
+
+// console.log(first);
+
+new_fruits = fruits.toSorted()
+// console.log(new_fruits);
+
+// console.log(fruits);
+
+// fruits.reverse()
+// console.log(fruits);
+
+const points = [40, 100, 1, 5, 25, 10];
+points.sort((a,b) => a - b);  // Ascending
+// console.log(points);
+
+points.sort((a,b) => b - a);  // Descending
+// console.log(points);
+
+// console.log(Math.random());  // Random number between 0 and 1
+// console.log((Math.random() * 2).toFixed());  // Random number between 0 and 2
+

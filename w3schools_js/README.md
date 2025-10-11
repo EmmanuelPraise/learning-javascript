@@ -1579,7 +1579,7 @@ If the item is present more than once, it returns the position of the first occu
 
 #### JavaScript Array lastIndexOf()
 
-`Array.lastIndexOf()` is the same as Array.indexOf(), but returns the position of the last occurrence of the specified element.
+`Array.lastIndexOf()` is the same as `Array.indexOf()`, but returns the position of the last occurrence of the specified element.
 
 Example
 Search an array for the item "Apple":
@@ -1589,4 +1589,152 @@ const fruits = ["Apple", "Orange", "Apple", "Mango"];
 let position = fruits.lastIndexOf("Apple") + 1;
 
 console.log(position);
+```
+
+Syntax: `array.lastIndexOf(item, start)`
+item - Required. The item to search for
+start Optional. Where to start the search. Negative values will start at the given position counting from the end, and search to the beginning
+
+
+#### JavaScript Array `includes()`
+
+`Array.includes()` allows us to check if an element is present in an array (including NaN, unlike indexOf).
+
+Example
+
+```javascript
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+
+console.log(fruits.includes("Mango"));
+```
+
+Syntax: `array.includes(search-item)`
+
+Array.includes() allows to check for NaN values. Unlike Array.indexOf().
+
+#### JavaScript Array find()
+
+The find() method returns the value of the first array element that passes a test function.
+
+This example finds (returns the value of) the first element that is larger than 18:
+
+```javascript
+const numbers = [4, 9, 16, 25, 29];
+let first = numbers.find((num) => num > 18);
+
+console.log(first);
+```
+
+#### JavaScript Array `findIndex()`
+
+The `findIndex()` method returns the index of the first array element that passes a test function.
+
+This example finds the index of the first element that is larger than 18:
+
+```javascript
+const numbers = [4, 9, 16, 25, 29];
+let first = numbers.findIndex((num) => num > 18);
+
+console.log(first);
+```
+
+### JavaScript Array Sort
+
+#### Sorting an Array
+
+The `sort()` method sorts an array alphabetically:
+
+Example
+
+```javascript
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.sort();
+console.log(fruits);
+```
+
+#### Reversing an Array
+
+The `reverse()` method reverses the elements in an array:
+
+Example
+
+```javascript
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.reverse();
+console.log(fruits);
+```
+
+By combining `sort()` and reverse(), you can sort an array in descending order:
+
+Example
+
+```javascript
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.sort();
+fruits.reverse();
+console.log(fruits);
+```
+
+#### JavaScript Array `toSorted()` Method
+
+The `toSorted()` method as a safe way to sort an array without altering the original array.
+
+The difference between `toSorted()` and `sort()` is that the first method creates a new array, keeping the original array unchanged, while the last method alters the original array.
+
+Example
+
+```javascript
+const months = ["Jan", "Feb", "Mar", "Apr"];
+const sorted = months.toSorted();
+console.log(sorted);
+```
+
+#### JavaScript Array `toReversed()` Method
+
+The `toReversed()` method as a safe way to reverse an array without altering the original array.
+
+The difference between `toReversed()` and `reverse()` is that the first method creates a new array, keeping the original array unchanged, while the last method alters the original array.
+
+Example
+
+```javascript
+const months = ["Jan", "Feb", "Mar", "Apr"];
+const reversed = months.toReversed();
+console.log(reversed);
+```
+
+#### Numeric Sort
+
+By default, the `sort()` function sorts values as strings.
+
+This works well for strings ("Apple" comes before "Banana").
+
+If numbers are sorted as strings, "25" is bigger than "100", because "2" is bigger than "1".
+
+Because of this, the `sort()` method will produce incorrect result when sorting numbers.
+
+You can fix this by providing a compare function:
+
+Example
+
+```javascript
+const points = [40, 100, 1, 5, 25, 10];
+points.sort((a,b) => a - b);  // Ascending
+console.log(points);
+```
+
+Here’s how it works for each pair of elements a and b:
+
+- If the result is negative (a - b < 0), a comes before b.
+- If the result is positive (a - b > 0), a comes after b.
+- If the result is zero (a - b === 0), their order stays the same.
+
+Use the same trick to sort an array descending:
+
+Example
+
+```javascript
+const points = [40, 100, 1, 5, 25, 10];
+points.sort((a,b) => b - a);  // Descending
+console.log(points);
 ```
