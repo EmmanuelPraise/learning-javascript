@@ -105,11 +105,31 @@ function uppercase() {
     text.toUpperCase();
 }
 
-function fullName(){
+function fullName() {
   let fullName = document.getElementById("fullName").value;
 
   fullName = fullName.trim().split(" ");
 
   document.getElementById("demo_").innerHTML = `Full Name: ${fullName.join(" ")}`;
+}
+
+function showPoints() {
+  const points = [2, 3, 4, 7, 5, 6, 7];
+
+  // Select the first element with class 'points'
+  const pointsContainer = document.querySelector(".points");
+  ;
+
+  // Start with an empty string
+  let points_html = "";
+
+  // Loop through and build the HTML
+  points.forEach(point => {
+    points_html += `<li>${point}</li>`;
+    console.log(point);
+  });
+
+  // Insert into the container
+  pointsContainer.innerHTML = points_html;
 }
 

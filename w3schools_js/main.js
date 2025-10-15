@@ -541,3 +541,99 @@ points.sort((a,b) => b - a);  // Descending
 // console.log(Math.random());  // Random number between 0 and 1
 // console.log((Math.random() * 2).toFixed());  // Random number between 0 and 2
 
+function addNum(numbers, num) {
+  return numbers.map((aNumber) => aNumber + num);
+}
+
+// console.log(addNum([1,2,3,4,5], 5));
+
+// function removeEgg (foods) {
+//   return foods.filter((food) => food !== "Egg");
+// }
+function removeEgg (foods) {
+  let  num_of_show_ups = 0
+
+  return foods.filter((food) => {
+
+    if (food === "Egg" && num_of_show_ups !== 2) {
+      num_of_show_ups ++;
+      return false;
+    }
+      return true;
+  });
+}
+
+// console.log(removeEgg(["Egg","Rice", "Beans", "Egg", "Yam", "Egg", "Egg"]));
+
+foods = ["Egg","Rice", "Beans", "Egg", "Yam", "Egg"]
+new_food = []
+
+let  num_of_show_ups = 0
+
+for (let i = 0; i < foods.length; i++) {
+
+  if (foods[i] === "Egg" && num_of_show_ups !== 2) {
+    num_of_show_ups ++;
+    continue;
+  }
+  new_food.push(foods[i]);
+};
+
+// console.log(new_food)
+
+// console.log(removeEEggs(["Egg","Rice", "Beans", "Egg", "Yam", "Egg"]));
+
+
+// const points = [40, 100, 1, 5, 25, 10];
+function myFunction() {
+  for (let i = points.length -1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i+1));
+    let k = points[i];
+    points[i] = points[j];
+    points[j] = k;
+  }
+  console.log(points);
+  
+}
+
+const new_cars = [
+  {type:"Volvo", year:2016},
+  {type:"Saab", year:2001},
+  {type:"BMW", year:2010}
+];
+
+new_cars.sort(function(a, b){return a.year - b.year});
+console.log(new_cars);
+
+
+const students2 = [
+  {name: "John", age: 22, gpa: 4.8, matricNumber: 20227487},
+  {name: "Emmanuel", age: 20, gpa: 4.0, matricNumber: 20227483},
+  {name: "Doe", age: 20, gpa: 3.8, matricNumber: 20227488},
+  {name: "David", age: 21, gpa: 5.0, matricNumber: 20227485},
+  {name: "Sarah", age: 19, gpa: 3.5, matricNumber: 20227484},
+  {name: "Olusanya", age: 21, gpa: 4.5, matricNumber: 20227486}
+];
+
+students2.sort(function(a, b){return a.matricNumber - b.matricNumber});
+// console.log(students2);
+
+points.forEach(point => {
+  // console.log(point);
+});
+
+const numbers1 = [45, 4, 9, 16, 25];
+
+const numbers2 = numbers1.map(num => num * 2);
+// console.log(numbers2);
+
+// console.log(numbers1.filter(num => num > 18));
+
+const sum_numbers = numbers1.reduce((a,b) => a - b)
+// console.log(sum_numbers)
+
+const allOver18 = numbers1.every(num => num > 18)
+// console.log(allOver18);
+
+let someOver18 = numbers1.some(num => num > 18)
+// console.log(someOver18)

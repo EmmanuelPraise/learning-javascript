@@ -1738,3 +1738,160 @@ const points = [40, 100, 1, 5, 25, 10];
 points.sort((a,b) => b - a);  // Descending
 console.log(points);
 ```
+
+Sorting Objects
+
+```javascript
+const cars = [
+  {type:"Volvo", year:2016},
+  {type:"Saab", year:2001},
+  {type:"BMW", year:2010}
+];
+
+cars.sort(function(a, b){return a.year - b.year});
+console.log(cars);
+```
+
+### Array Iteration Methods
+
+Array iteration methods operate on every array item.
+
+- Array forEach
+- Array map()
+- Array flatMap()
+- Array filter()
+- Array reduce()
+- Array reduceRight()
+- Array every()
+- Array some()
+- Array from()
+- Array keys()
+- Array entries()
+- Array with()
+- Array Spread (...)
+- Array Rest (...)
+
+Javascript `forEach()` method
+The `forEach()` method calls a function (a callback function) once for each array element.
+
+Example
+
+```javascript
+const points = []
+
+points.forEach(point => {
+  console.log(point);
+});
+```
+
+#### Javascript `map()` method
+
+The `map()` method creates a new array by performing a function on each array element.
+The `map()` method does not execute the function for array elements without values.
+The `map()` method does not change the original array.
+
+```javascript
+const numbers1 = [45, 4, 9, 16, 25];
+
+const numbers2 = numbers1.map(num => num * 2);
+console.log(numbers2);
+```
+
+#### JavaScript Array `filter()`
+
+The `filter()` method creates a new array with array elements that pass a test.
+This example creates a new array from elements with a value larger than 18:
+
+```javascript
+const numbers1 = [45, 4, 9, 16, 25];
+
+const numbers2 = numbers1.filter(num => num > 18);
+console.log(numbers2);
+```
+
+#### JavaScript Array `reduce()`
+
+The `reduce()` method runs a function on each array element to produce a single value.
+The `reduce()` method works from left-to-right in the array. See also reduceRight().
+Note: The `reduce()` method does not reduce the original array.
+
+This example finds the sum of all numbers in an array:
+
+```javascript
+const numbers1 = [45, 4, 9, 16, 25];
+
+const sum_numbers = numbers1.reduce((a,b) => a + b)
+console.log(sum_numbers)
+```
+
+#### JavaScript Array `every()`
+
+The `every()` method checks if all array values pass a test.
+This example checks if all array values are larger than 18:
+
+```javascript
+const numbers1 = [45, 4, 9, 16, 25];
+
+const allOver18 = numbers1.every(num => num > 18)
+console.log(allOver18);
+```
+
+#### JavaScript Array `some()`
+
+The `some()` method checks if some array values pass a test.
+This example checks if some array values are larger than 18:
+
+```javascript
+const numbers1 = [45, 4, 9, 16, 25];
+
+let someOver18 = numbers1.some(num => num > 18)
+console.log(someOver18)
+```
+
+| Name | Description |
+| - | - |
+| [ ] | Creates a new Array |
+| new Array()| Creates a new Array |
+| at()| Returns an indexed element of an array |
+| concat()| Joins arrays and returns an array with the joined arrays |
+| constructor | Returns the function that created the Array prototype |
+| copyWithin()| Copies array elements within the array, to and from specified positions |
+| entries()| Returns a key/value pair Array Iteration Object |
+| every()| Checks if every element in an array pass a test |
+| fill()| Fill the elements in an array with a static value |
+| filter()| Creates a new array with every element in an array that pass a test |
+| find()| Returns the value of the first element in an array that pass a test |
+| findIndex()| Returns the index of the first element in an array that pass a test |
+| findLast()| Returns the value of the last element in an array that pass a test |
+| findLastIndex()| Returns the index of the last element in an array that pass a test |
+| flat()| Concatenates sub-array elements |
+| flatMap()| Maps all array elements and creates a new flat array |
+| forEach()| Calls a function for each array element |
+| from()| Creates an array from an object |
+| includes()| Check if an array contains the specified element |
+| indexOf()| Search the array for an element and returns its position |
+| isArray()| Checks whether an object is an array |
+| join()| Joins all elements of an array into a string |
+| keys()| Returns a Array Iteration Object, containing the keys of the original array |
+| lastIndexOf()| Search the array for an element, starting at the end, and returns its position |
+| length | Sets or returns the number of elements in an array |
+| map()| Creates a new array with the result of calling a function for each array element |
+| of()| Creates an array from a number of arguments |
+| pop()| Removes the last element of an array, and returns that element |
+| prototype | Allows you to add properties and methods to an Array object |
+| push()| Adds new elements to the end of an array, and returns the new length |
+| reduce()| Reduce the values of an array to a single value (going left-to-right) |
+| reduceRight()| Reduce the values of an array to a single value (going right-to-left) |
+| reverse()| Reverses the order of the elements in an array |
+| shift()| Removes the first element of an array, and returns that element |
+| slice()| Selects a part of an array, and returns the new array |
+| some()| Checks if any of the elements in an array pass a test |
+| sort()| Sorts the elements of an array |
+| splice()| Adds or Removes array elements |
+| toReversed()| Reverses the order of array elements (to a new array) |
+| toSorted()| Sorts the elements of an array (to a new array) |
+| toSpliced()| Adds or Removes array elements (to a new array) |
+| toString()| Converts an array to a string, and returns the result |
+| unshift()| Adds new elements to the beginning of an array, and returns the new length |
+| valueOf()| Returns the primitive value of an array |
+| with()| Returns a new array with updated elements |
