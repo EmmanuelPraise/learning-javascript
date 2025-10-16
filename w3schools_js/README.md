@@ -1895,3 +1895,190 @@ console.log(someOver18)
 | unshift()| Adds new elements to the beginning of an array, and returns the new length |
 | valueOf()| Returns the primitive value of an array |
 | with()| Returns a new array with updated elements |
+
+## JavaScript Sets
+
+A JavaScript Set is a collection of unique values.
+Each value can only occur once in a Set.
+The values can be of any type, primitive values or objects.
+
+### How to create a set
+
+A JavaScript Set can be created by:
+
+- Passing an array to `new Set()`
+- Create an empty set and use `add()` to add values
+
+#### The `new Set()` Method
+
+Pass an array to the `new Set()` constructor:
+Example
+
+```javascript
+// Create a Set
+const letters = new Set(["a","b","c"]);
+console.log(letters);
+```
+
+#### The `add()` Method
+
+Create an empty set and use `add()` to add values:
+Example
+
+```javascript
+// Create an empty Set
+const letters = new Set();
+
+// Add values to the Set
+letters.add("a");
+letters.add("b");
+letters.add("c");
+console.log(letters);
+```
+
+Sets are objects
+
+```javascript
+console.log(typeof letters) // object
+console.log( letters instanceof Set) // true
+```
+
+### Basic Set Methods
+
+- new Set()
+- add()
+- clear()
+- delete()
+- entries()
+- forEach()
+- has()
+- keys()
+- values()
+
+Set Properties
+
+- size
+
+**Note**
+The primary feature of Set objects is that they only store unique values.
+
+If an attempt is made to add an element that already exists in the set, the `add()` method will have no effect, and the set will remain unchanged.
+
+The size Property
+
+```javascript
+// Create a new Set
+const mySet = new Set(["a","b","c"]);
+
+// The number of elements are
+console.log(mySet.size);
+```
+
+The `has()` Method
+The `has()` method returns true if a specified value exists in a set.
+
+Example
+
+```javascript
+// Create a Set
+const letters = new Set(["a","b","c"]);
+
+// Does the Set contain "d"?
+answer = letters.has("d");
+console.log(answer)
+```
+
+The `forEach()` Method
+The `forEach()` method invokes a function for each Set element:
+
+Example
+
+```javascript
+// Create a Set
+const letters = new Set(["a","b","c"]);
+
+// List all entries
+let text = "";
+letters.forEach (function(value) {
+  text += value;
+});
+
+console.log(text);
+```
+
+### Javascript logic methods
+
+- union()
+- difference()
+- intersection()
+- isDisjointFrom()
+- isSubsetOf()
+- isSupersetOf()
+- symmetricDifference()
+
+#### The `union()` Method
+
+The `union()` method returns the union of two sets.
+The `union()` method returns a new set containing the elements which are in this set, or in the argument set, or in both:
+
+Union
+
+Example
+
+```javascript
+const A = new Set(['a','b','c']);
+const B = new Set(['b','c','d']);
+
+const C = A.union(B);
+console.log(C)
+```
+
+#### The `intersection()` Method
+
+The `intersection()` method returns the intersection of two sets.
+The `intersection()` method returns a new set containing the elements which are in this set and in the argument set:
+
+Intersection
+
+Example
+
+```javascript
+const A = new Set(['a','b','c']);
+const B = new Set(['b','c','d']);
+
+const C = A.intersection(B);
+console.log(C)
+```
+
+```javascript
+const A = new Set(['a','b','c']);
+const B = new Set(['b','c','d']);
+
+// The difference() method returns the difference between two sets.
+// The difference() method returns a new set containing elements which are in this set but not in the argument set:
+const E = A.difference(B);
+console.log(E);
+
+// The symmetricDifference() method returns the symmetric difference between to sets.
+// The symmetricDifference() method returns a new set containing elements which are in this set or in the argument set, but not in both:
+const F = A.symmetricDifference(B);
+console.log(F);
+
+// The isSubsetOf() method returns true if all elements in this set is also elements in the argument set:
+const G = A.isSubsetOf(B);
+console.log(G);
+
+// The isSupersetOf() method returns true if all elements in the argument set are also in this set:
+const H = A.isSupersetOf(B);
+console.log(H);
+
+// The isDisjointFrom() method returns true if this set has no elements in common with the argument set:
+const I = A.isDisjoint(B);
+console.log(I);
+```
+
+### The WeakSet Object
+
+A JavaScript WeakSet is a collection of values where the values must be objects.
+
+A WeakSet holds weak references to its values.

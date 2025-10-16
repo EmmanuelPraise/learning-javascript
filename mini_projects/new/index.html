@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Avatar Pillow Builder with Background Removal</title>
+
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Croppie -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" />
+
+  <!-- TensorFlow + Background Removal -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.11.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@imgly/background-removal@2.2.2/dist/background-removal.min.js"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex justify-center items-center p-6">
+  <div class="product-customizer-app bg-white rounded-xl shadow-2xl p-8 max-w-5xl w-full">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">🪶 3D Avatar Pillow Builder (with BG Removal)</h1>
+
+    <div class="app-layout flex flex-col lg:flex-row gap-10">
+      <!-- LEFT PANEL -->
+      <div class="customization-options lg:w-1/3 space-y-8">
+        <!-- Upload Image -->
+        <div class="p-6 border border-gray-200 rounded-lg shadow-md">
+          <h2 class="text-xl font-semibold text-gray-700 mb-4">1. Upload New Image</h2>
+          <input type="file" id="image-upload" accept="image/*"
+            class="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 
+                   file:rounded-full file:border-0 file:text-sm file:font-semibold 
+                   file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+        </div>
+
+        <!-- Hidden crop area -->
+        <div id="crop-container-hidden" class="hidden"></div>
+
+        <!-- Ratio -->
+        <div class="size-controls p-6 border border-gray-200 rounded-lg shadow-md">
+          <h2 class="text-xl font-semibold text-gray-700 mb-4">2. Select Pillow Ratio</h2>
+          <label for="size-select" class="block text-gray-600 mb-2">Pillow Ratio (W:H):</label>
+          <select id="size-select"
+            class="js-img-size w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+            <option value="1.0x1.0" selected>Square (1:1)</option>
+            <option value="1.5x1.0">Lumbar (1.5:1)</option>
+            <option value="1.0x1.5">Tall (1:1.5)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <div class="product-preview lg:w-2/3 space-y-4">
+        <h2 class="text-xl font-semibold text-gray-700 text-center">3. Final 3D Preview</h2>
+
+        <div id="pillow-3d-container"
+          class="w-full h-96 border-4 border-gray-300 rounded-xl overflow-hidden shadow-inner flex justify-center items-center bg-gray-200 relative">
+          <span class="text-gray-500">Upload an image to start previewing...</span>
+        </div>
+
+        <p id="size-message" class="text-blue-600 text-center font-medium">Current Ratio: 1.0:1.0</p>
+        <p id="webgl-status" class="text-center text-sm text-gray-500">Ready for image upload.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+
+  <script src="script.js"></script>
+</body>
+</html>

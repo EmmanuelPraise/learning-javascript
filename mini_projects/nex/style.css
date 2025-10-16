@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 30px;
+}
+
+.product-customizer-app {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.app-layout {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.customization-options, .product-preview {
+    flex: 1;
+}
+
+.crop-module-container {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+#crop-container {
+    height: 300px; /* Croppie requires a fixed height */
+    width: 100%;
+}
+
+.action-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+/* 3D Mockup Container (Fixed size for WebGL canvas) */
+.pillow-mockup-area {
+    width: 100%; 
+    height: 400px; /* Fixed height for the WebGL viewer */
+    border: 3px solid #ccc;
+    border-radius: 10px;
+    margin: 20px auto;
+    overflow: hidden;
+    position: relative; /* Necessary for canvas positioning */
+}
+
+/* Ensure the canvas fills the container */
+#pillow-3d-container canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.size-controls {
+    margin-top: 30px;
+    padding: 15px 0;
+}
+
+#size-select {
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.info-message {
+    color: #007bff;
+    font-style: italic;
+}

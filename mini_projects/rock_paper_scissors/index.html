@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles can go here if needed, but we'll stick to utility classes */
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div class="bg-white shadow-2xl rounded-xl p-8 max-w-lg w-full">
+
+        <header class="text-center mb-8">
+            <h1 class="text-5xl font-extrabold text-gray-800 tracking-wider">
+                ROCK 🪨 PAPER 📄 SCISSORS ✂️
+            </h1>
+        </header>
+
+        <div class="flex justify-around items-center text-center mb-10 border-b-2 pb-4">
+            <div class="p-3 bg-blue-500 text-white rounded-lg shadow-md min-w-[100px]">
+                <p class="text-2xl font-bold" id="player-score">0</p>
+                <p class="text-sm uppercase tracking-wider">Player</p>
+            </div>
+            <div class="text-4xl font-extrabold text-gray-600 mx-4">
+                -
+            </div>
+            <div class="p-3 bg-red-500 text-white rounded-lg shadow-md min-w-[100px]">
+                <p class="text-2xl font-bold" id="computer-score">0</p>
+                <p class="text-sm uppercase tracking-wider">Computer</p>
+            </div>
+        </div>
+
+        <div class="text-center mb-10">
+            <p id="game-message" class="text-3xl font-semibold text-gray-700 h-10 flex items-center justify-center">
+                Make your move!
+            </p>
+        </div>
+
+        <div class="flex justify-around items-center gap-4">
+            <button id="rock-btn" class="choice-btn flex flex-col items-center justify-center p-6 bg-gradient-to-r from-gray-700 to-gray-900 text-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 w-1/3 aspect-square" value="rock" onclick="rockBtn()">
+                <span class="text-5xl mb-2" role="img" aria-label="Rock">🪨</span>
+                <span class="text-lg font-semibold uppercase tracking-wide">Rock</span>
+            </button>
+
+            <button id="paper-btn" class="choice-btn flex flex-col items-center justify-center p-6 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 w-1/3 aspect-square" value="paper" onclick="paperBtn()">
+                <span class="text-5xl mb-2" role="img" aria-label="Paper">📄</span>
+                <span class="text-lg font-semibold uppercase tracking-wide">Paper</span>
+            </button>
+
+            <button id="scissors-btn" class="choice-btn flex flex-col items-center justify-center p-6 bg-gradient-to-r from-red-400 to-red-600 text-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 w-1/3 aspect-square" onclick="scissorsBtn()">
+                <span class="text-5xl mb-2" role="img" aria-label="Scissors">✂️</span>
+                <span class="text-lg font-semibold uppercase tracking-wide">Scissors</span>
+            </button>
+        </div>
+
+        <div class="mt-8 text-center">
+             <button id="reset-btn" class="px-6 py-2 bg-yellow-500 text-white font-bold rounded-full shadow-md hover:bg-yellow-600 transition duration-200" onclick="resetGame()">
+                Play Again / Reset
+            </button>
+        </div>
+
+    </div>
+
+    <div class="mt-6 p-4 bg-white rounded-lg shadow-md w-full max-w-lg flex justify-around text-center">
+        <div>
+            <p class="text-gray-500 text-sm mb-1">Your Selection:</p>
+            <p id="player-choice-display" class="text-4xl font-bold h-12 flex items-center justify-center"> - </p>
+        </div>
+        <div>
+            <p class="text-gray-500 text-sm mb-1">Computer Selection:</p>
+            <p id="computer-choice-display" class="text-4xl font-bold h-12 flex items-center justify-center"> - </p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
