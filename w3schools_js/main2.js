@@ -1,3 +1,22 @@
+// button = true
+// clicked = false
+
+// if (button ==  true && clicked == true){
+//     button = false
+//     console.log("Bulb is switched off");
+// }
+// else if(button == false && clicked == true){
+//     button = true
+//     console.log("Bulb is switched on");
+// } else if(button == true && clicked == false){
+//     console.log("Bulb is on, No operation carried out!");
+// } else if (button == false && clicked == false){
+//     console.log("Bulb is off, No operation carried out!");
+
+// }
+// onclick switch on
+// button = on
+
 const letters = new Set(["a", "b", "c"]); // Create a Set
 letters.add("d"); // Add new items to the Set
 letters.add("e");

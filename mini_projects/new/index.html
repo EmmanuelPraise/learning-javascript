@@ -1,73 +1,436 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3D Avatar Pillow Builder with Background Removal</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D Custom Shape Pillow</title>
 
-  <!-- TailwindCSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Croppie -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" />
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+            }
+        }
+    </script>
 
-  <!-- TensorFlow + Background Removal -->
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.11.0/dist/tf.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@imgly/background-removal@2.2.2/dist/background-removal.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        /* Hidden canvas for image processing */
+        #tracerCanvas {
+            display: none;
+        }
+    </style>
 </head>
+<body class="bg-gradient-to-br from-sky-100 to-emerald-100 min-h-screen flex justify-center items-center p-8">
 
-<body class="bg-gray-100 min-h-screen flex justify-center items-center p-6">
-  <div class="product-customizer-app bg-white rounded-xl shadow-2xl p-8 max-w-5xl w-full">
-    <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">🪶 3D Avatar Pillow Builder (with BG Removal)</h1>
+    <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-5xl">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">
+            3D Custom Shape Pillow
+        </h1>
 
-    <div class="app-layout flex flex-col lg:flex-row gap-10">
-      <!-- LEFT PANEL -->
-      <div class="customization-options lg:w-1/3 space-y-8">
-        <!-- Upload Image -->
-        <div class="p-6 border border-gray-200 rounded-lg shadow-md">
-          <h2 class="text-xl font-semibold text-gray-700 mb-4">1. Upload New Image</h2>
-          <input type="file" id="image-upload" accept="image/*"
-            class="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 
-                   file:rounded-full file:border-0 file:text-sm file:font-semibold 
-                   file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+        <div class="flex flex-col lg:flex-row gap-8">
+            <div class="lg:w-1/3 space-y-6">
+                <div class="p-5 border border-gray-200 rounded-xl shadow-sm">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-3">Upload Image</h2>
+                    <input type="file" id="imageUpload" accept="image/*"
+                        class="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 
+                                file:rounded-full file:border-0 file:text-sm file:font-semibold 
+                                file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                </div>
+
+                <div class="p-5 border border-gray-200 rounded-xl shadow-sm">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-3">Pillow Size</h2>
+                    <select id="sizeSelect"
+                        class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400">
+                        <option value="1x1" selected>Square (1:1)</option>
+                        <option value="1.5x1">Lumbar (1.5:1)</option>
+                        <option value="1x1.5">Tall (1:1.5)</option>
+                    </select>
+                    <p id="ratioLabel" class="text-blue-700 mt-2 text-sm text-center">Current Ratio: 1:1</p>
+                </div>
+
+                <div class="p-5 border border-gray-200 rounded-xl shadow-sm text-center">
+                    <button id="removeBgBtn"
+                        class="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
+                        disabled>
+                        Remove Background & Apply
+                    </button>
+                    <div id="status" class="mt-3 text-sm text-gray-600">Awaiting image upload...</div>
+                </div>
+            </div>
+
+            <div class="lg:w-2/3">
+                <div id="pillow3DContainer"
+                    class="w-full h-[420px] bg-gray-200 rounded-xl flex items-center justify-center shadow-inner overflow-hidden">
+                    <span class="text-gray-500">Your 3D Pillow Preview appears here</span>
+                </div>
+            </div>
         </div>
-
-        <!-- Hidden crop area -->
-        <div id="crop-container-hidden" class="hidden"></div>
-
-        <!-- Ratio -->
-        <div class="size-controls p-6 border border-gray-200 rounded-lg shadow-md">
-          <h2 class="text-xl font-semibold text-gray-700 mb-4">2. Select Pillow Ratio</h2>
-          <label for="size-select" class="block text-gray-600 mb-2">Pillow Ratio (W:H):</label>
-          <select id="size-select"
-            class="js-img-size w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-            <option value="1.0x1.0" selected>Square (1:1)</option>
-            <option value="1.5x1.0">Lumbar (1.5:1)</option>
-            <option value="1.0x1.5">Tall (1:1.5)</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- RIGHT PANEL -->
-      <div class="product-preview lg:w-2/3 space-y-4">
-        <h2 class="text-xl font-semibold text-gray-700 text-center">3. Final 3D Preview</h2>
-
-        <div id="pillow-3d-container"
-          class="w-full h-96 border-4 border-gray-300 rounded-xl overflow-hidden shadow-inner flex justify-center items-center bg-gray-200 relative">
-          <span class="text-gray-500">Upload an image to start previewing...</span>
-        </div>
-
-        <p id="size-message" class="text-blue-600 text-center font-medium">Current Ratio: 1.0:1.0</p>
-        <p id="webgl-status" class="text-center text-sm text-gray-500">Ready for image upload.</p>
-      </div>
     </div>
-  </div>
 
-  <!-- JS Libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+    <canvas id="tracerCanvas"></canvas>
 
-  <script src="script.js"></script>
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { ExtrudeGeometry } from 'three/addons/geometries/ExtrudeGeometry.js'; 
+        import { Shape } from 'three/addons/extras/Shape.js'; 
+
+
+        const REMOVE_BG_API_KEY = "DJ6exFPw7aVP1zeQipVeNXyA";
+        const pillowContainer = document.getElementById("pillow3DContainer");
+        const imageUpload = document.getElementById("imageUpload");
+        const sizeSelect = document.getElementById("sizeSelect");
+        const ratioLabel = document.getElementById("ratioLabel");
+        const removeBgBtn = document.getElementById("removeBgBtn");
+        const statusEl = document.getElementById("status");
+        const tracerCanvas = document.getElementById("tracerCanvas");
+        const ctx = tracerCanvas.getContext('2d');
+
+        let scene, camera, renderer, pillowMesh, controls;
+        let selectedFile = null;
+        let currentTexture = null;
+
+        const PILLOW_DEPTH = 0.1; 
+        const ROTATION_SPEED = 0.005;
+        let currentWidth = 1;
+        let currentHeight = 1;
+        
+        // --- Core Vectorization Functions (Simplified Contour Tracing) ---
+
+        /**
+         * Traces the contour (outline) of the non-transparent pixels on the image.
+         * @param {string} imageURL - URL of the transparent PNG.
+         * @returns {Promise<THREE.Vector2[]>} - A promise that resolves to an array of points for the outer contour.
+         */
+        async function getImageContour(imageURL) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                // FIX: Set crossOrigin to allow Canvas to read pixel data from the blob URL
+                img.crossOrigin = "anonymous"; 
+                
+                img.onload = () => {
+                    const maxDim = 256; 
+                    let width, height;
+                    
+                    if (img.width > img.height) {
+                        width = maxDim;
+                        height = Math.round(maxDim * (img.height / img.width));
+                    } else {
+                        height = maxDim;
+                        width = Math.round(maxDim * (img.width / img.height));
+                    }
+                    
+                    width = Math.max(width, 32); 
+                    height = Math.max(height, 32);
+
+                    tracerCanvas.width = width;
+                    tracerCanvas.height = height;
+                    ctx.clearRect(0, 0, width, height);
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const imageData = ctx.getImageData(0, 0, width, height);
+                    const data = imageData.data;
+                    const contourPoints = [];
+                    const alphaThreshold = 128; 
+
+                    // Boundary Detection
+                    for (let y = 0; y < height; y++) {
+                        for (let x = 0; x < width; x++) {
+                            const i = (y * width + x) * 4;
+                            const alpha = data[i + 3];
+
+                            if (alpha > alphaThreshold) { 
+                                // Check a 3x3 neighborhood for transparent borders
+                                let isBoundary = false;
+                                for (let dy = -1; dy <= 1; dy++) {
+                                    for (let dx = -1; dx <= 1; dx++) {
+                                        if (dx === 0 && dy === 0) continue;
+                                        const nx = x + dx;
+                                        const ny = y + dy;
+
+                                        if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                                            const ni = (ny * width + nx) * 4;
+                                            if (data[ni + 3] < alphaThreshold) {
+                                                isBoundary = true;
+                                                break;
+                                            }
+                                        } else {
+                                            isBoundary = true; 
+                                            break;
+                                        }
+                                    }
+                                    if (isBoundary) break;
+                                }
+
+                                if (isBoundary) {
+                                    const x3D = (x / width - 0.5); 
+                                    const y3D = (0.5 - y / height); 
+                                    contourPoints.push(new THREE.Vector2(x3D, y3D));
+                                }
+                            }
+                        }
+                    }
+                    
+                    // --- Simplification and Scaling ---
+                    
+                    if (contourPoints.length < 3) {
+                         const w = currentWidth / 2, h = currentHeight / 2;
+                         return resolve([
+                             new THREE.Vector2(-w, -h), new THREE.Vector2(w, -h), 
+                             new THREE.Vector2(w, h), new THREE.Vector2(-w, h),
+                         ]);
+                    }
+
+                    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+                    contourPoints.forEach(p => {
+                        if (p.x < minX) minX = p.x;
+                        if (p.x > maxX) maxX = p.x;
+                        if (p.y < minY) minY = p.y;
+                        if (p.y > maxY) maxY = p.y;
+                    });
+                    
+                    const shapeWidth = maxX - minX;
+                    const shapeHeight = maxY - minY;
+                    const scaleFactor = Math.min(currentWidth / shapeWidth, currentHeight / shapeHeight) * 0.95; 
+
+                    const simplifiedPoints = [];
+                    let lastAngle = -Infinity;
+                    for(let i = 0; i < contourPoints.length; i++) {
+                         const p = contourPoints[i];
+                         const scaledP = new THREE.Vector2(p.x * scaleFactor, p.y * scaleFactor);
+                         
+                         const angle = Math.atan2(scaledP.y, scaledP.x);
+                         if (angle > lastAngle + (2 * Math.PI / 100)) { 
+                             simplifiedPoints.push(scaledP);
+                             lastAngle = angle;
+                         }
+                    }
+                    
+                    simplifiedPoints.sort((a, b) => Math.atan2(a.y, a.x) - Math.atan2(b.y, b.x));
+                    
+                    resolve(simplifiedPoints);
+                };
+                img.onerror = reject;
+                img.src = imageURL;
+            });
+        }
+
+        /**
+         * Creates and returns the THREE.Mesh with custom extruded geometry.
+         */
+        function createExtrudedPillow(points, texture) {
+            const shape = new Shape(points);
+
+            if (pillowMesh && Array.isArray(pillowMesh.material)) {
+                 pillowMesh.material.forEach(m => m.map && m.map !== texture && m.map.dispose());
+            }
+
+            const extrudeSettings = {
+                steps: 1,
+                depth: PILLOW_DEPTH,
+                bevelEnabled: true,
+                bevelThickness: 0.05,
+                bevelSize: 0.02,
+                bevelSegments: 2,
+            };
+
+            const geometry = new ExtrudeGeometry(shape, extrudeSettings);
+            
+            const frontBackMaterial = new THREE.MeshPhongMaterial({
+                map: texture,
+                transparent: true,
+                side: THREE.FrontSide,
+            });
+            
+            const sideMaterial = new THREE.MeshPhongMaterial({
+                color: 0xcccccc 
+            });
+
+            const materials = [
+                frontBackMaterial, 
+                sideMaterial,      
+            ];
+
+            const mesh = new THREE.Mesh(geometry, materials);
+            
+            geometry.center();
+
+            return mesh;
+        }
+        
+        // --- 3D Scene Management ---
+
+        function init3D() {
+            const width = pillowContainer.clientWidth;
+            const height = pillowContainer.clientHeight;
+
+            scene = new THREE.Scene();
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(width, height);
+            pillowContainer.innerHTML = "";
+            pillowContainer.appendChild(renderer.domElement);
+            scene.background = new THREE.Color(0xf5f5f5);
+
+            camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+            camera.position.z = 3;
+
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+
+            const light1 = new THREE.DirectionalLight(0xffffff, 0.9);
+            light1.position.set(2, 2, 2);
+            const light2 = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(light1, light2);
+
+            const defaultPoints = [
+                new THREE.Vector2(-0.5, -0.5), new THREE.Vector2(0.5, -0.5), 
+                new THREE.Vector2(0.5, 0.5), new THREE.Vector2(-0.5, 0.5)
+            ];
+            pillowMesh = createExtrudedPillow(defaultPoints, new THREE.Texture());
+            scene.add(pillowMesh);
+
+            function animate() {
+                requestAnimationFrame(animate);
+                controls.update();
+
+                if (pillowMesh) {
+                    pillowMesh.rotation.y += ROTATION_SPEED;
+                }
+
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+
+        // --- Event Handlers ---
+
+        sizeSelect.addEventListener("change", () => {
+            const [w, h] = sizeSelect.value.split("x").map(Number);
+            ratioLabel.textContent = `Current Ratio: ${w}:${h}`;
+            currentWidth = w;
+            currentHeight = h;
+            if (currentTexture && currentTexture.image && currentTexture.image.src) {
+                 applyTextureAndGenerateGeometry(currentTexture.image.src, false); 
+            }
+        });
+
+        imageUpload.addEventListener("change", (e) => {
+            selectedFile = e.target.files[0];
+            if (selectedFile) {
+                statusEl.textContent = "✅ Image selected. Click 'Remove Background & Apply'.";
+                removeBgBtn.disabled = false;
+            } else {
+                statusEl.textContent = "Awaiting image upload...";
+                removeBgBtn.disabled = true;
+            }
+        });
+
+        removeBgBtn.addEventListener("click", async () => {
+            if (!selectedFile) {
+                alert("Please upload an image first!");
+                return;
+            }
+
+            removeBgBtn.disabled = true;
+            statusEl.textContent = "⏳ Removing background...";
+            
+            const formData = new FormData();
+            formData.append("image_file", selectedFile);
+            formData.append("size", "auto");
+            formData.append("format", "png");
+
+            try {
+                const response = await fetch("https://api.remove.bg/v1.0/removebg", {
+                    method: "POST",
+                    headers: {
+                        "X-Api-Key": REMOVE_BG_API_KEY,
+                        // DO NOT set 'Content-Type' for FormData
+                    },
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    let errorMessage = response.statusText;
+                    try {
+                        const errorData = await response.json();
+                        if (errorData.errors && errorData.errors[0].title) {
+                            errorMessage = errorData.errors[0].title;
+                        }
+                    } catch (e) {}
+                    throw new Error(`API Error: ${errorMessage}`);
+                }
+
+                const blob = await response.blob();
+                const resultURL = URL.createObjectURL(blob);
+
+                await applyTextureAndGenerateGeometry(resultURL, true); 
+                
+                statusEl.textContent = "✅ Custom shape generated and applied to 3D model.";
+
+            } catch (err) {
+                console.error("Error:", err);
+                statusEl.textContent = `❌ Failed. Error: ${err.message}. (Ensure you are running on a local server!)`;
+            } finally {
+                removeBgBtn.disabled = false;
+            }
+        });
+
+        /**
+         * Main function to handle tracing, geometry generation, and texturing.
+         */
+        async function applyTextureAndGenerateGeometry(imageURL, loadNewTexture) {
+            
+            if (loadNewTexture) {
+                const textureLoader = new THREE.TextureLoader();
+                currentTexture = await new Promise((resolve, reject) => {
+                    // FIX: Texture loading must be asynchronous to use the new image data
+                    textureLoader.load(imageURL, resolve, undefined, reject);
+                });
+                currentTexture.colorSpace = THREE.SRGBColorSpace;
+                // REVOKE the Blob URL only after the texture is fully loaded by the browser
+                URL.revokeObjectURL(imageURL); 
+            } else if (!currentTexture) {
+                 return; 
+            }
+
+            statusEl.textContent = "⏳ Tracing image contour and generating 3D shape...";
+            
+            // Pass the texture's internal image source for tracing
+            const traceSource = loadNewTexture ? currentTexture.image.src : imageURL;
+            const contourPoints = await getImageContour(traceSource); 
+            
+            const newMesh = createExtrudedPillow(contourPoints, currentTexture);
+
+            if (pillowMesh) {
+                 scene.remove(pillowMesh);
+                 pillowMesh.geometry.dispose();
+                 if(Array.isArray(pillowMesh.material)) {
+                      pillowMesh.material.forEach(m => {
+                          if(m.map && m.map !== currentTexture) m.map.dispose();
+                          m.dispose();
+                      });
+                 } else {
+                      pillowMesh.material.dispose();
+                 }
+            }
+            
+            pillowMesh = newMesh;
+            scene.add(pillowMesh);
+            
+            controls.target.set(0, 0, 0);
+            const maxDim = Math.max(currentWidth, currentHeight);
+            camera.position.z = maxDim * 2.5; 
+            controls.update();
+        }
+
+        init3D();
+    </script>
 </body>
 </html>

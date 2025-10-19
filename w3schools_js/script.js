@@ -63,17 +63,25 @@ function getGrade() {
   document.getElementById("grade").innerHTML = `Your grade is ${grade}.`;
 }
 
-function toggleBulb() {
-  const cmd = "on"; //document.getElementById("cmd").value.toLowerCase();
-  const bulbImg = document.getElementById("myImage");
-  if (cmd === "on") {
-    bulbImg.src = "/w3schools_js/img/pic_bulbon.gif";
-  } else if (cmd === "off") {
-    bulbImg.src = "/w3schools_js/img/pic_bulboff.gif";
-  }
-}
+let bulbOn = false; // Track bulb state
 
-toggleBulb()
+    function toggleBulb() {
+      const bulbImg = document.getElementById("myImage");
+      const button = document.getElementById("toggleBtn");
+
+      if (!bulbOn) {
+        // Turn ON
+        bulbImg.src = "/w3schools_js/img/pic_bulbon.gif";
+        button.innerText = "Turn Off";
+        bulbOn = true;
+      } else {
+        // Turn OFF
+        bulbImg.src = "/w3schools_js/img/pic_bulboff.gif";
+        button.innerText = "Turn On";
+        bulbOn = false;
+      }
+    }
+
 
 function changeBackgroundColor() {
   let red_ = Math.floor(Math.random() * 256);

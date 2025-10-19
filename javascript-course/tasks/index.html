@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task</title>
+</head>
+
+<body>
+    <h3>1. Show & Hide Notification</h1>
+        <strong>Message Goal:</strong>
+        <p>When a button is clicked, display a notification message (like “Saved Successfully”) that fades away
+            after 3 seconds.</p>
+
+        <strong>Hints:</strong>
+        <ul>
+            <li>Use classList.add() and classList.remove() to toggle visibility.</li>
+            <li>Use setTimeout() to remove the class after 3 seconds.</li>
+            <li>If clicked again before it disappears, reset the timer using clearTimeout().</li>
+        </ul>
+
+        <h3>Solution</h3>
+        <button onclick="showNotification()">Save</button>
+        <p id="notification" style="opacity: 0; transition: opacity 0.5s ease-in-out;">Saved Successfully!</p>
+
+        <hr>
+
+        <h3>2. Typing Indicator Simulation</h3>
+        <strong>Goal:</strong>
+        <p>Simulate a typing indicator (like in chat apps).
+            When the user types in an input field, show “User is typing…” below.</p>
+        <p>If the user stops typing for 2 seconds, hide the message.</p>
+        <strong>Hints:</strong>
+        <ul>
+            <li>Use input event + setTimeout() + clearTimeout().</li>
+        </ul>
+
+        <h3>Solution</h3>
+        <input type="text" placeholder="Type here..." id="textInput">
+        <p id="status" style="opacity: 0; transition: opacity 0.5s ease-in-out;">User is typing...</p>
+
+        <hr>
+
+        <h3>3. Countdown Button</h3>
+        <strong>Goal:</strong>
+        <p>When the user clicks a “Send Code” button, start a 10-second countdown (e.g., “Resend code in 9s…”).</p>
+        <p>After the countdown ends, reset the button text to “Send Code.”</p>
+        <strong>Hints:</strong>
+        <ul>
+            <li>Use setInterval() and clearInterval()</li>
+        </ul>
+
+        <h3>Solution</h3>
+
+        <hr>
+
+        <h3>4. Like Button Animation</h3>
+        <strong>Goal:</strong>
+        <p>When clicking the ❤ button, toggle between “liked” and “unliked” states.</p>
+        <p>Add a CSS animation (like a quick pop or scale effect).
+            Use classList.toggle() and simple CSS transitions.</p>
+
+        <h3>Solution</h3>
+        <img id="heart" src="/javascript-course/tasks/heart.png" style="width: 40px; cursor: pointer;"
+            onclick="toggleHeart()">
+
+        <hr>
+
+        <h3>5. Auto-Dismiss Alert Box</h3>
+        <strong>Goal:</strong>
+        <p>Create an alert box (like “Form Submitted!”) that:
+            Appears when a form is submitted. <br>
+            Fades out automatically after 4 seconds. <br>
+            Cancels fade-out if hovered over (pause timer).</p>
+        <strong>Hints:</strong>
+        <ul>
+            <li>Use mouseenter / mouseleave to pause and resume the timeout.</li>
+        </ul>
+        <script src="script.js"></script>
+</body>
+
+</html>

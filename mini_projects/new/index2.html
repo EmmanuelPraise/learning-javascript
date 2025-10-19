@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🪶 3D Figurine Builder (Geometric Cutout)</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-sky-100 to-emerald-100 min-h-screen flex justify-center items-center p-8">
+
+    <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-5xl">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">
+            🪶 3D Figurine Builder (Geometric Cutout Effect)
+        </h1>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+            <div class="lg:w-1/3 space-y-6">
+                <div class="p-5 border border-gray-200 rounded-xl shadow-sm">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-3">1️⃣ Upload Image</h2>
+                    <input type="file" id="imageUpload" accept="image/*"
+                        class="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 
+                                file:rounded-full file:border-0 file:text-sm file:font-semibold 
+                                file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                </div>
+
+                <div class="p-5 border border-gray-200 rounded-xl shadow-sm">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-3">2️⃣ Figurine Ratio</h2>
+                    <select id="sizeSelect"
+                        class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400">
+                        <option value="1x1" selected>Square (1:1)</option>
+                        <option value="1.5x1">Lumbar (1.5:1)</option>
+                        <option value="1x1.5">Tall (1:1.5)</option>
+                    </select>
+                    <p id="ratioLabel" class="text-blue-700 mt-2 text-sm text-center">Current Ratio: 1:1</p>
+                </div>
+
+                <div class="p-5 border border-gray-200 rounded-xl shadow-sm text-center">
+                    <button id="removeBgBtn"
+                        class="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
+                        disabled>
+                        Remove Background & Apply
+                    </button>
+                    <div id="status" class="mt-3 text-sm text-gray-600">Awaiting image upload...</div>
+                </div>
+            </div>
+
+            <div class="lg:w-2/3">
+                <div id="pillow3DContainer"
+                    class="w-full h-[420px] bg-gray-200 rounded-xl flex items-center justify-center shadow-inner overflow-hidden">
+                    <span class="text-gray-500">Your 3D Figurine Preview appears here</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const REMOVE_BG_API_KEY = "TyGkscDiQUZtaYQxFZCbBVKB"; 
+        const pillowContainer = document.getElementById("pillow3DContainer");
+        const imageUpload = document.getElementById("imageUpload");
+        const sizeSelect = document.getElementById("sizeSelect");
+        const ratioLabel = document.getElementById("ratioLabel");
+        const removeBgBtn = document.getElementById("removeBgBtn");
+        const statusEl = document.getElementById("status");
+
+        let scene, camera, renderer, pillowMesh, controls;
+        let selectedFile = null;
+
+        // 1️⃣ Initialize 3D Scene
+        function init3D() {
+            const width = pillowContainer.clientWidth;
+            const height = pillowContainer.clientHeight;
+
+            scene = new THREE.Scene();
+            // Crucial: Use alpha: true on renderer to see the background through transparent parts
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(width, height);
+            pillowContainer.innerHTML = "";
+            pillowContainer.appendChild(renderer.domElement);
+            scene.background = new THREE.Color(0xf5f5f5);
+
+            camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+            camera.position.z = 3;
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+
+            const light1 = new THREE.DirectionalLight(0xffffff, 0.9);
+            light1.position.set(2, 2, 2);
+            const light2 = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(light1, light2);
+
+            // CHANGED: Use PlaneGeometry for a flat cutout effect
+            const geometry = new THREE.PlaneGeometry(1, 1); 
+            const material = new THREE.MeshPhongMaterial({ color: 0xffffff, side: THREE.DoubleSide });
+            pillowMesh = new THREE.Mesh(geometry, material);
+            scene.add(pillowMesh);
+
+            function animate() {
+                requestAnimationFrame(animate);
+                controls.update();
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+
+        // 2️⃣ Update Figurine Ratio
+        function updatePillowRatio(ratioW, ratioH) {
+            if (!scene) return;
+            scene.remove(pillowMesh);
+            // CHANGED: Use PlaneGeometry
+            const geometry = new THREE.PlaneGeometry(ratioW, ratioH); 
+            
+            // Clone and ensure side is DoubleSide for the single plane
+            const oldMaterial = pillowMesh.material;
+            const newMaterial = oldMaterial.clone();
+            newMaterial.side = THREE.DoubleSide; // Ensure both sides render
+            
+            pillowMesh = new THREE.Mesh(geometry, newMaterial);
+            scene.add(pillowMesh);
+        }
+
+        sizeSelect.addEventListener("change", () => {
+            const [w, h] = sizeSelect.value.split("x").map(Number);
+            ratioLabel.textContent = `Current Ratio: ${w}:${h}`;
+            updatePillowRatio(w, h);
+        });
+
+        // 3️⃣ Handle Image Upload
+        imageUpload.addEventListener("change", (e) => {
+            selectedFile = e.target.files[0];
+            if (selectedFile) {
+                statusEl.textContent = "✅ Image selected. Click 'Remove Background & Apply'.";
+                removeBgBtn.disabled = false;
+            } else {
+                statusEl.textContent = "Awaiting image upload...";
+                removeBgBtn.disabled = true;
+            }
+        });
+
+        // 4️⃣ Call remove.bg API and Apply Texture
+        removeBgBtn.addEventListener("click", async () => {
+            if (!selectedFile) {
+                alert("Please upload an image first!");
+                return;
+            }
+
+            removeBgBtn.disabled = true;
+            statusEl.textContent = "⏳ Removing background (API call in progress)...";
+            
+            const formData = new FormData();
+            formData.append("image_file", selectedFile);
+            formData.append("size", "auto");
+            formData.append("format", "png");
+
+            try {
+                const response = await fetch("https://api.remove.bg/v1.0/removebg", {
+                    method: "POST",
+                    headers: { 
+                        "X-Api-Key": REMOVE_BG_API_KEY,
+                    },
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    let errorMessage = response.statusText;
+                    try {
+                        const errorData = await response.json(); 
+                        if (errorData.errors && errorData.errors[0].title) {
+                            errorMessage = errorData.errors[0].title;
+                        }
+                    } catch (e) {}
+                    throw new Error(`API Error: ${errorMessage}`);
+                }
+
+                const blob = await response.blob();
+                const resultURL = URL.createObjectURL(blob);
+
+                applyTextureToPillow(resultURL);
+                statusEl.textContent = "✅ Background removed and applied to 3D model.";
+
+            } catch (err) {
+                console.error("Error:", err);
+                statusEl.textContent = `❌ Failed. Error: ${err.message}. Ensure you are running on a local server.`;
+            } finally {
+                removeBgBtn.disabled = false; 
+            }
+        });
+
+        // 5️⃣ Apply the image as texture to the 3D figurine (UPDATED)
+        function applyTextureToPillow(imageURL) {
+            const loader = new THREE.TextureLoader();
+            loader.load(imageURL, (texture) => {
+                texture.colorSpace = THREE.SRGBColorSpace;
+                URL.revokeObjectURL(imageURL); 
+
+                // --- 1. Texture for the Front Face ---
+                // The original texture is used for the front (viewed from Z+)
+                const frontTexture = texture;
+
+                // --- 2. Texture for the Back Face (Flipped) ---
+                // Clone and flip the texture horizontally to face the front
+                const backTexture = texture.clone();
+                backTexture.wrapS = THREE.RepeatWrapping;
+                backTexture.repeat.x = -1; // Flips horizontally
+                backTexture.offset.x = 1; 
+                backTexture.needsUpdate = true;
+
+                // --- 3. Single Material for Double-Sided Plane ---
+                // With PlaneGeometry, we only need one material, but we set its .onBeforeCompile 
+                // to flip the UVs based on which side is being rendered.
+                
+                const combinedMat = new THREE.MeshPhongMaterial({ 
+                    map: frontTexture, // Use the front texture as the default map
+                    transparent: true, 
+                    alphaTest: 0.5, // Crucial for the cutout effect
+                    side: THREE.DoubleSide, // Render both sides
+                });
+
+                // NOTE: For true double-sided flipping on a single material, 
+                // we modify the GLSL shader (onBeforeCompile) to use the flipped texture on the back side.
+                // However, directly using a cloned texture is simpler for a single-file demo.
+                // Since PlaneGeometry has only one material slot, we must use a custom shader trick
+                // or a different approach.
+
+                // HACK: Simpler approach for PlaneGeometry by swapping the material slot (not strictly correct but works for single material)
+                // The correct way is to use a custom shader (onBeforeCompile). 
+                // Since PlaneGeometry is flat, we'll assign the flipped texture logic directly in the material slot.
+
+                combinedMat.onBeforeCompile = (shader) => {
+                    // Check if it's the back side (GL_FRONT_FACING is false)
+                    shader.vertexShader = shader.vertexShader.replace(
+                        '#include <clipping_planes_pars_vertex>',
+                        `
+                        #include <clipping_planes_pars_vertex>
+                        varying vec2 vFrontUV;
+                        `
+                    );
+
+                    shader.vertexShader = shader.vertexShader.replace(
+                        '#include <project_vertex>',
+                        `
+                        #include <project_vertex>
+                        vFrontUV = uv;
+                        `
+                    );
+
+                    shader.fragmentShader = shader.fragmentShader.replace(
+                        '#include <map_pars_fragment>',
+                        `
+                        #include <map_pars_fragment>
+                        varying vec2 vFrontUV;
+                        `
+                    );
+
+                    shader.fragmentShader = shader.fragmentShader.replace(
+                        '#include <map_fragment>',
+                        `
+                        #if defined( USE_MAP )
+
+                            vec2 uv = gl_FrontFacing ? vFrontUV : vec2(1.0 - vFrontUV.x, vFrontUV.y);
+                            vec4 texelColor = texture2D( map, uv );
+
+                            texelColor = mapTexelToLinear( texelColor );
+                            diffuseColor *= texelColor;
+
+                        #endif
+                        `
+                    );
+                };
+
+                // The onBeforeCompile approach is the cleanest way to flip the UVs
+                // on the back face when using THREE.DoubleSide on a PlaneGeometry.
+                pillowMesh.material = combinedMat;
+                pillowMesh.material.needsUpdate = true;
+                
+                // Clear the console warning that may appear with onBeforeCompile
+                pillowMesh.material.customProgramCacheKey = function () {
+                    return REMOVE_BG_API_KEY + "figurine_cutout";
+                };
+            });
+        }
+
+        // Init the scene
+        init3D();
+    </script>
+</body>
+</html>
