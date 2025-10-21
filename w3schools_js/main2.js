@@ -71,22 +71,40 @@ const A = new Set(['a','b','c']);
 const B = new Set(['b','c','d']);
 
 const C = A.union(B);
-console.log(C)
+// console.log(C)
 
 const D = A.intersection(B);
-console.log(D);
+// console.log(D);
 
 const E = A.difference(B);
-console.log(E);
+// console.log(E);
 
 const F = A.symmetricDifference(B);
-console.log(F);
+// console.log(F);
 
 const G = A.isSubsetOf(B);
-console.log(G);
+// console.log(G);
 
 const H = A.isSupersetOf(B);
-console.log(H);
+// console.log(H);
 
-const I = A.isDisjoint(B);
-console.log(I);
+// const I = A.isDisjoint(B);
+// console.log(I);
+
+
+function countdown() {
+    let count = 5;
+  
+    const timer = setInterval(() => {
+      console.log(count);
+      count--;
+  
+      if (count === 0) {
+        clearInterval(timer);
+        console.log("Time's up!");
+      }
+    }, 1000);
+  }
+  
+  countdown();
+  
