@@ -25,8 +25,8 @@ letters.add("f");
 
 letters.delete("c");
 
-for (const x of letters) {  
-    // console.log(x);
+for (const x of letters) {
+  // console.log(x);
 }
 
 // console.log(typeof letters) // object
@@ -41,7 +41,7 @@ for (const x of letters) {
 let text = "";
 
 letters.forEach(letter => {
-    return text += letter + ", ";
+  return text += letter + ", ";
 });
 
 // console.log(text);
@@ -58,7 +58,7 @@ const numbers = new Set([1, 2, 3, 4, 5]);
 // console.log(numbers);
 
 for (const n of numbers) {
-    //  console.log(n);
+  //  console.log(n);
 }
 
 // const person = {name: "John", age: 30, city: "New York"};
@@ -67,8 +67,8 @@ for (const n of numbers) {
 //     console.log(key, value);
 // }
 
-const A = new Set(['a','b','c']);
-const B = new Set(['b','c','d']);
+const A = new Set(['a', 'b', 'c']);
+const B = new Set(['b', 'c', 'd']);
 
 const C = A.union(B);
 // console.log(C)
@@ -88,23 +88,56 @@ const G = A.isSubsetOf(B);
 const H = A.isSupersetOf(B);
 // console.log(H);
 
-// const I = A.isDisjoint(B);
+const I = A.isDisjointFrom(B);
 // console.log(I);
 
 
 function countdown() {
-    let count = 5;
-  
-    const timer = setInterval(() => {
-      console.log(count);
-      count--;
-  
-      if (count === 0) {
-        clearInterval(timer);
-        console.log("Time's up!");
-      }
-    }, 1000);
-  }
-  
-  countdown();
-  
+  let count = 5;
+
+  const timer = setInterval(() => {
+    console.log(count);
+    count--;
+
+    if (count === 0) {
+      clearInterval(timer);
+      console.log("Time's up!");
+    }
+  }, 1000);
+}
+
+// countdown();
+
+// Create a WeakSet
+let mySet = new WeakSet();
+
+// Create an Object
+let myObj = { fname: "John", lname: "Doe" };
+
+// Add the Object
+mySet.add(myObj);
+
+// Do I have myObj in the mySet?
+let answer = mySet.has(myObj);
+// console.log(`Do I have myObj in the mySet? ${answer}`);
+
+// console.log(mySet);
+
+const fruits = new Map([
+  ["apples", 500],
+  ["bananas", 300],
+  ["oranges", 200]
+]);
+
+console.log(fruits); // Map(3) {"apples" => 500, "bananas" => 300, "oranges" => 200}
+
+fruits.set("grapes", 400);      
+fruits.set("pineapples", 600);
+
+console.log(fruits); // Map(5) {"apples" => 500, "bananas" => 300, "oranges" => 200, "grapes" => 400, "pineapples" => 600}
+
+fruits.set("apples", 200);
+
+console.log(fruits); // Map(5) {"apples" => 200, "bananas" => 300, "oranges" => 200, "grapes" => 400, "pineapples" => 600}
+
+console.log(fruits.get("apples"));    // Returns 200

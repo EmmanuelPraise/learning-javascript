@@ -21,8 +21,8 @@
         </ul>
 
         <h3>Solution</h3>
-        <button onclick="showNotification()">Save</button>
-        <p id="notification" style="opacity: 0; transition: opacity 0.5s ease-in-out;">Saved Successfully!</p>
+        <button onclick="showNotification()" style="cursor: pointer;">Save</button>
+        <div id="notification" style="opacity: 0; transition: opacity 0.5s ease-in-out; background-color: green; color:white; padding: 10px; margin-top: 10px; border-radius: 6px; width: fit-content;">Saved Successfully!</div>
 
         <hr>
 
@@ -53,6 +53,8 @@
 
         <h3>Solution</h3>
 
+        <button id="code">Send Code</button>
+
         <hr>
 
         <h3>4. Like Button Animation</h3>
@@ -69,14 +71,19 @@
 
         <h3>5. Auto-Dismiss Alert Box</h3>
         <strong>Goal:</strong>
-        <p>Create an alert box (like “Form Submitted!”) that:
-            Appears when a form is submitted. <br>
+        <p>Create an alert box (like “Form alert!”) that:
+            Appears when a form is alert. <br>
             Fades out automatically after 4 seconds. <br>
             Cancels fade-out if hovered over (pause timer).</p>
         <strong>Hints:</strong>
         <ul>
             <li>Use mouseenter / mouseleave to pause and resume the timeout.</li>
         </ul>
+
+
+        <button id="submit" style="cursor: pointer;">Submit</button>
+        <div id="alert" style=" opacity: 0; transition: opacity 0.5s ease-in-out; background-color: green; color: white; padding: 10px; margin-top: 10px; border-radius: 6px; width: fit-content;">Submitted Successfully!</div>
+
         <script src="script.js"></script>
 </body>
 

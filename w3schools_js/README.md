@@ -365,8 +365,8 @@ Example
 ```javascript
 let text = "12345";
 
-let min = Math.min(...text);
-let max = Math.max(...text);
+let min = console.log(Math.min(...text);
+let max = console.log(Math.max(...text);
 ```
 
 ## Javasript Comparison Operators
@@ -2082,3 +2082,141 @@ console.log(I);
 A JavaScript WeakSet is a collection of values where the values must be objects.
 
 A WeakSet holds weak references to its values.
+
+Examples
+
+```javascript
+// Create a WeakSet
+let mySet = new WeakSet();
+
+// Create an Object
+let myObj = {fname:"John", lname:"Doe"};
+
+// Add the Object
+mySet.add(myObj);
+
+// Do I have myObj in the mySet?
+let answer = mySet.has(myObj);
+```
+
+WeakSet Object is not Iterable
+
+## JavaScript Map Object
+
+A Map object holds key-value pairs where the keys can be any datatype.
+
+A Map also remembers the original insertion order of the keys.
+
+How to Create a Map
+You can create a JavaScript Map by:
+
+- Passing an Array to `new Map()`
+- Create a Map and use Map.set()
+
+The `new Map()` Method
+You can create a Map by passing an Array to the `new Map()` constructor:
+
+Example
+
+```javascript
+// Create a Map
+const fruits = new Map([
+  ["apples", 500],
+  ["bananas", 300],
+  ["oranges", 200]
+]);
+
+console.log(fruits);
+```
+
+### The set() Method
+
+You can add elements to a Map with the set() method:
+
+Example
+
+```javascript
+// Create a Map
+const fruits = new Map();
+
+// Set Map Values
+fruits.set("apples", 500);
+fruits.set("bananas", 300);
+fruits.set("oranges", 200);
+
+console.log(fruits);
+```
+
+The set() method can also be used to change existing Map values:
+
+Example
+
+```javascript
+fruits.set("apples", 200);
+console.log(fruits);
+```
+
+### The `get()` Method
+
+The `get()` method gets the value of a key in a Map:
+
+Example
+
+```javascript
+console.log(fruits.get("apples"));    // Returns 200
+```
+
+Maps are Objects
+typeof returns object:
+
+Example
+// Returns object:
+typeof fruits;
+instanceof Map returns true:
+
+Example
+// Returns true:
+fruits instanceof Map;
+
+## The Math Object
+
+The JavaScript Math object allows you to perform mathematical tasks.
+
+The Math object is static.
+
+All methods and properties can be used without creating a Math object first.
+
+`console.log(Math.PI;`
+
+### Math Properties (Constants)
+
+The syntax for any Math property is : console.log(Math.property)
+
+JavaScript provides 8 mathematical constants that can be accessed as Math properties:
+
+Example
+
+```javascript
+console.log(Math.E);        // returns Euler's number
+console.log(Math.PI);       // returns PI
+console.log(Math.SQRT2);    // returns the square root of 2
+console.log(Math.SQRT1_2);  // returns the square root of 1/2
+console.log(Math.LN2);      // returns the natural logarithm of 2
+console.log(Math.LN10);     // returns the natural logarithm of 10
+console.log(Math.LOG2E);    // returns base 2 logarithm of E
+console.log(Math.LOG10E);   // returns base 10 logarithm of E
+```
+
+Math Methods
+The syntax for Math any methods is : Math.method(number)
+
+Number to Integer
+There are 4 common methods to round a number to an integer:
+
+| Method | Description |
+| - | - |
+| Math.round(x) | Returns x rounded to its nearest integer |
+| Math.ceil(x) | Returns x rounded up to its nearest integer |
+| Math.floor(x) | Returns x rounded down to its nearest integer |
+| Math.trunc(x) | Returns the integer part of x |
+

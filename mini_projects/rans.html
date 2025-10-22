@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Custom Image Pillow — 3D Builder (Front & Mirrored Back)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#f8fafc;--panel:#ffffff;--accent:#4f46e5;--muted:#64748b;}
+  body{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial; background:var(--bg); margin:0; padding:28px;}
+  .container{max-width:1200px;margin:0 auto;}
+  .wrap{display:grid; grid-template-columns:420px 1fr; gap:28px; align-items:start;}
+  .panel{background:var(--panel); border-radius:14px; padding:18px; box-shadow:0 10px 30px rgba(16,24,40,0.06); border:1px solid rgba(15,23,42,0.04);}
+  h1{font-size:20px;margin:0 0 10px 0; font-weight:800; color:#0f172a;}
+  .label{font-weight:700;color:#0f172a;margin-bottom:8px;font-size:13px;}
+  .muted{color:var(--muted);font-size:13px;}
+  .file-input{width:100%; padding:10px; border-radius:8px; border:1px dashed #e6e9ef; background:#fafbff; cursor:pointer;}
+  .btn{display:inline-block;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer;text-align:center;border:none;}
+  .btn-primary{background:var(--accent);color:#fff;box-shadow:0 8px 24px rgba(79,70,229,0.16);}
+  .btn-cta{background:#0f172a;color:#fff;}
+  .price{font-size:18px;font-weight:800;color:var(--accent);margin-top:8px;}
+  #three-root{border-radius:14px; overflow:hidden; height:620px; background:linear-gradient(180deg,#f7f8ff,#eef2ff); display:flex; align-items:center; justify-content:center; position:relative;}
+  .note{font-size:12px;color:#94a3b8;margin-top:10px;}
+  .control-row{display:flex;gap:10px;align-items:center;}
+  .slider{width:100%;}
+  .tiny{font-size:12px;color:#94a3b8;}
+  .controls-grid{display:grid;grid-template-columns:1fr 1fr; gap:10px;}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <h1>🪶 Custom Image Pillow — 3D Builder</h1>
+      <div class="muted" style="font-size:13px;">Front = original • Back = mirrored • Auto-rotate enabled</div>
+    </div>
+
+    <div class="wrap">
+      <!-- LEFT: Controls -->
+      <div class="panel" aria-label="Controls">
+        <div>
+          <div class="label">Upload Image (front)</div>
+          <input id="file" type="file" accept="image/*" class="file-input" />
+          <div class="note">Background removed automatically using remove.bg. Use a clear subject on simple background for best silhouette tracing.</div>
+        </div>
+
+        <div style="margin-top:12px;">
+          <button id="processBtn" class="btn btn-primary" style="width:100%;">✨ Remove BG & Generate Image Pillow</button>
+        </div>
+
+        <div style="margin-top:14px;">
+          <div class="label">Size & Price</div>
+          <select id="sizeSelect" style="width:100%; padding:10px; border-radius:8px; border:1px solid #e6e9ef;">
+            <option value="small">Small — $60</option>
+            <option value="medium">Medium — $80</option>
+            <option value="large">Large — $95</option>
+          </select>
+          <div class="price" id="priceLabel">$60</div>
+        </div>
+
+        <div style="margin-top:14px;">
+          <div class="label">Appearance Controls</div>
+          <div class="tiny">Thickness (pillow depth)</div>
+          <input id="thickness" type="range" class="slider" min="0.10" max="0.60" step="0.01" value="0.34" />
+          <div class="tiny">Softness (bevel & fabric feel)</div>
+          <input id="softness" type="range" class="slider" min="0.00" max="0.12" step="0.002" value="0.03" />
+          <div style="margin-top:8px;" class="controls-grid">
+            <button id="downloadBtn" class="btn" style="background:#efefef;">⬇️ Download PNG</button>
+            <button id="resetBtn" class="btn" style="background:#fff;border:1px solid #e6e9ef;">Reset</button>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;">
+          <button id="addToCart" class="btn btn-cta" style="width:100%;">🛒 Add to cart</button>
+        </div>
+
+        <div id="status" class="muted" style="margin-top:12px;">Status: Awaiting upload…</div>
+
+        <div class="note" style="margin-top:14px;">Tip: high-res images produce crisper silhouettes and prints. Generated PNG attached to the order properties.</div>
+      </div>
+
+      <!-- RIGHT: 3D Preview -->
+      <div class="panel" id="three-root">
+        <div id="placeholder" style="text-align:center;color:#475569;">
+          <div style="font-weight:700;font-size:15px;margin-bottom:6px;">3D Pillow Preview</div>
+          <div class="muted">Upload and click “Remove BG & Generate Image Pillow”</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- three.js -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+
+  <script>
+  /* ======= CONFIG: Replace before production ======= */
+  const REMOVE_BG_API_KEY = "xTm4bUp5Y7Pqe9wCevEBoZLD"; // <-- replace
+  const VARIANT_IDS = { small: 1234567890, medium: 1234567891, large: 1234567892 }; // <-- replace
+  const PRICE_BY_SIZE = { small: 60, medium: 80, large: 95 };
+
+  /* ======= UI elements ======= */
+  const fileEl = document.getElementById('file');
+  const processBtn = document.getElementById('processBtn');
+  const statusEl = document.getElementById('status');
+  const threeRoot = document.getElementById('three-root');
+  const sizeSelect = document.getElementById('sizeSelect');
+  const priceLabel = document.getElementById('priceLabel');
+  const addToCartBtn = document.getElementById('addToCart');
+  const thicknessEl = document.getElementById('thickness');
+  const softnessEl = document.getElementById('softness');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const resetBtn = document.getElementById('resetBtn');
+
+  sizeSelect.addEventListener('change', ()=> priceLabel.textContent = '$' + PRICE_BY_SIZE[sizeSelect.value]);
+
+  /* ======= Border tracing & simplification (same robust algorithms used previously) ======= */
+  function traceBorder(alphaCtx, w, h, alphaThreshold=10) {
+    const data = alphaCtx.getImageData(0,0,w,h).data;
+    function A(x,y){ return data[(y*w + x)*4 + 3]; }
+    let start = null;
+    for (let y=0;y<h;y++){ for (let x=0;x<w;x++){ if (A(x,y) > alphaThreshold){ start=[x,y]; break; } } if (start) break; }
+    if (!start) return null;
+    const dirs = [[1,0],[1,-1],[0,-1],[-1,-1],[-1,0],[-1,1],[0,1],[1,1]];
+    let cur = start.slice(), prevDir = 6, guard=0;
+    const border = [];
+    do {
+      border.push(cur.slice());
+      let found=false; let s = (prevDir + 6) % 8;
+      for (let i=0;i<8;i++){
+        const di = (s + i) % 8;
+        const nx = cur[0] + dirs[di][0], ny = cur[1] + dirs[di][1];
+        if (nx>=0 && nx<w && ny>=0 && ny<h && A(nx,ny) > alphaThreshold) { cur=[nx,ny]; prevDir=di; found=true; break; }
+      }
+      if (!found) break;
+      guard++; if (guard>20000) break;
+    } while (!(cur[0]===start[0] && cur[1]===start[1]) && guard<20000);
+    return border;
+  }
+
+  function simplifyRDP(points, eps) {
+    if (points.length < 3) return points;
+    function pd(pt,a,b){ const x=pt[0], y=pt[1], x1=a[0], y1=a[1], x2=b[0], y2=b[1]; const A=x-x1, B=y-y1, C=x2-x1, D=y2-y1; const dot = A*C + B*D; const len2 = C*C + D*D; let param = len2 !==0 ? dot/len2 : -1; let xx,yy; if (param<0){ xx=x1; yy=y1;} else if (param>1){ xx=x2; yy=y2;} else { xx=x1+param*C; yy=y1+param*D;} const dx=x-xx, dy=y-yy; return Math.sqrt(dx*dx + dy*dy); }
+    function rdp(pts, eps){ if (pts.length < 3) return pts; let maxD=0, idx=0; for (let i=1;i<pts.length-1;i++){ const d = pd(pts[i], pts[0], pts[pts.length-1]); if (d>maxD){ maxD=d; idx=i; } } if (maxD>eps){ const l = rdp(pts.slice(0, idx+1), eps); const r = rdp(pts.slice(idx), eps); return l.slice(0, l.length-1).concat(r); } else return [pts[0], pts[pts.length-1]]; }
+    return rdp(points, eps);
+  }
+
+  /* ======= Build side fabric texture sampled from image outer edge ======= */
+  function buildSideTextureFromCanvases(frontCanvas, alphaCanvas) {
+    const w = frontCanvas.width, h = frontCanvas.height;
+    const fctx = frontCanvas.getContext('2d');
+    const actx = alphaCanvas.getContext('2d');
+    const src = fctx.getImageData(0,0,w,h).data;
+    let r=0,g=0,b=0,count=0;
+    const step = Math.max(2, Math.floor(Math.min(w,h)/60));
+    for (let y=0;y<h;y+=step){
+      for (let x=0;x<w;x+=step){
+        const a = actx.getImageData(x, y, 1,1).data[3];
+        if (a > 200) {
+          const sx = Math.min(w-1, x + step*3), sy = y;
+          const idx = (sy*w + sx)*4;
+          r += src[idx]; g += src[idx+1]; b += src[idx+2]; count++;
+        }
+      }
+    }
+    if (count === 0) {
+      for (let i=0;i<src.length;i+=4){ r += src[i]; g += src[i+1]; b += src[i+2]; count++; }
+    }
+    r = Math.round(r/count); g = Math.round(g/count); b = Math.round(b/count);
+
+    const c = document.createElement('canvas');
+    c.width = 1024; c.height = 256;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = `rgb(${r},${g},${b})`;
+    ctx.fillRect(0,0,c.width,c.height);
+    const img = ctx.getImageData(0,0,c.width,c.height);
+    for (let i=0;i<img.data.length;i+=4){
+      const v = Math.floor((Math.random()-0.5) * 14);
+      img.data[i] = Math.min(255, Math.max(0, img.data[i] + v));
+      img.data[i+1] = Math.min(255, Math.max(0, img.data[i+1] + v));
+      img.data[i+2] = Math.min(255, Math.max(0, img.data[i+2] + v));
+      img.data[i+3] = 255;
+    }
+    ctx.putImageData(img,0,0);
+    ctx.globalAlpha = 0.06; ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+    for (let i=0;i<c.height;i+=5){ ctx.beginPath(); ctx.moveTo(0,i); ctx.lineTo(c.width,i); ctx.stroke(); }
+    ctx.globalAlpha = 1.0;
+    const tex = new THREE.CanvasTexture(c);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(1,1);
+    return tex;
+  }
+
+  /* ======= THREE: build / update pillow geometry, materials, center & frame ======= */
+  let scene, camera, renderer, pillowGroup, generatedImageDataUrl;
+  let frontTexGlobal, backTexGlobal, alphaCanvasGlobal, simplifiedPointsGlobal;
+
+  function createShape(points, w, h) {
+    const cx = w/2, cy = h/2;
+    const scale = 1 / Math.max(w,h) * 1.6;
+    const shapePts = points.map(p => new THREE.Vector2((p[0]-cx)*scale, (cy-p[1])*scale));
+    const shape = new THREE.Shape(shapePts);
+    return shape;
+  }
+
+  function frameObjectToCamera(object, padding = 1.2) {
+    // compute bounding sphere and position camera so object fits
+    const box = new THREE.Box3().setFromObject(object);
+    const size = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
+    const maxDim = Math.max(size.x, size.y, size.z);
+    const fov = camera.fov * (Math.PI / 180);
+    let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * padding;
+    // direction from camera to center
+    camera.position.set(center.x, center.y + 0.2*maxDim, center.z + cameraZ);
+    camera.lookAt(center);
+    camera.updateProjectionMatrix();
+  }
+
+  function buildPillow() {
+    if (!frontTexGlobal || !backTexGlobal || !alphaCanvasGlobal || !simplifiedPointsGlobal) return;
+    // clean up previous
+    if (renderer) {
+      try { renderer.dispose(); } catch(e){}
+      threeRoot.innerHTML = '';
+    }
+
+    // init renderer
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(45, threeRoot.clientWidth / threeRoot.clientHeight, 0.05, 1000);
+    renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true, preserveDrawingBuffer:true });
+    renderer.setSize(threeRoot.clientWidth, threeRoot.clientHeight);
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.shadowMap.enabled = true;
+    threeRoot.appendChild(renderer.domElement);
+
+    // build shape/extrude with slider-driven params
+    const w = alphaCanvasGlobal.width, h = alphaCanvasGlobal.height;
+    const shape = createShape(simplifiedPointsGlobal, w, h);
+
+    const depth = parseFloat(thicknessEl.value);      // thickness slider
+    const softness = parseFloat(softnessEl.value);   // softness slider
+
+    const extrudeSettings = {
+      steps: 80,
+      depth: depth,
+      bevelEnabled: true,
+      bevelThickness: Math.max(0.001, softness),
+      bevelSize: Math.max(0.001, softness * 0.75),
+      bevelSegments: 16
+    };
+
+    const sideTex = buildSideTextureFromCanvases(frontTexGlobal.image, alphaCanvasGlobal);
+
+    const frontMat = new THREE.MeshPhysicalMaterial({
+      map: frontTexGlobal, transparent:true, roughness:0.82 - softness*2,
+      metalness:0.02 + softness*0.3, side: THREE.FrontSide, clearcoat:0.2, clearcoatRoughness:0.5
+    });
+    const backMat = new THREE.MeshPhysicalMaterial({
+      map: backTexGlobal, transparent:true, roughness:0.86 - softness*1.5,
+      metalness:0.02, side: THREE.BackSide, clearcoat:0.05
+    });
+    const sideMat = new THREE.MeshStandardMaterial({ map: sideTex, roughness:0.9, metalness:0.01 });
+
+    const geom = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+    geom.center();
+    geom.computeVertexNormals();
+
+    // split into front/back/side via separate meshes with tiny offsets to avoid z-fighting
+    const frontMesh = new THREE.Mesh(geom, frontMat);
+    frontMesh.position.z = depth/2 - 0.001;
+    const backMesh = new THREE.Mesh(geom, backMat);
+    backMesh.position.z = -depth/2 + 0.001;
+    const sideMesh = new THREE.Mesh(geom, sideMat);
+    sideMesh.scale.set(0.998, 0.998, 0.998);
+
+    pillowGroup = new THREE.Group();
+    pillowGroup.add(frontMesh, backMesh, sideMesh);
+    pillowGroup.rotation.x = -0.05;
+    scene.add(pillowGroup);
+
+    // lighting — premium soft lights + ambient
+    const key = new THREE.DirectionalLight(0xffffff, 1.05);
+    key.position.set(3, 4, 2); key.castShadow = true;
+    key.shadow.mapSize.width = key.shadow.mapSize.height = 2048;
+    scene.add(key);
+    const fill = new THREE.DirectionalLight(0xffffff, 0.45); fill.position.set(-3,-1,-2); scene.add(fill);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.48));
+
+    // ground shadow
+    const planeGeo = new THREE.PlaneGeometry(10,10);
+    const planeMat = new THREE.ShadowMaterial({ opacity:0.26 });
+    const plane = new THREE.Mesh(planeGeo, planeMat); plane.rotation.x = -Math.PI/2; plane.position.y = -0.92; plane.receiveShadow = true;
+    scene.add(plane);
+
+    frontMesh.castShadow = backMesh.castShadow = sideMesh.castShadow = true;
+
+    // center & frame camera
+    frameObjectToCamera(pillowGroup, 1.25);
+
+    // auto-rotate & breathing effect
+    let lastTime = performance.now();
+    function animate(){
+      requestAnimationFrame(animate);
+      // tiny slow rotation
+      pillowGroup.rotation.y += 0.0019 + Math.sin(Date.now()/7600) * 0.00035;
+      // slight vertical breathing
+      pillowGroup.rotation.x = THREE.MathUtils.lerp(pillowGroup.rotation.x, -0.04 + Math.sin(Date.now()/4200)*0.003, 0.02);
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // generate flattened PNG for cart + download
+    setTimeout(()=> {
+      try {
+        const prevSize = renderer.getSize(new THREE.Vector2()), prevPR = renderer.getPixelRatio();
+        const cap = 1400;
+        renderer.setPixelRatio(1);
+        renderer.setSize(cap, cap);
+        renderer.render(scene, camera);
+        generatedImageDataUrl = renderer.domElement.toDataURL('image/png');
+        renderer.setPixelRatio(prevPR); renderer.setSize(prevSize.x, prevSize.y);
+      } catch(e){ console.warn('capture failed', e); }
+    }, 700);
+
+    // expose function to re-fit camera when window resizes
+    window.addEventListener('resize', ()=> {
+      if (!renderer) return;
+      renderer.setSize(threeRoot.clientWidth, threeRoot.clientHeight);
+      camera.aspect = threeRoot.clientWidth / threeRoot.clientHeight;
+      camera.updateProjectionMatrix();
+      frameObjectToCamera(pillowGroup, 1.25);
+    });
+  }
+
+  /* ======= remove.bg pipeline & texture prep (front original, back mirrored) ======= */
+  async function removeBgAndBuild(file) {
+    statusEl.textContent = 'Sending to remove.bg...';
+    const fd = new FormData(); fd.append('image_file', file); fd.append('size','auto');
+    const res = await fetch('https://api.remove.bg/v1.0/removebg', { method:'POST', headers:{ 'X-Api-Key': REMOVE_BG_API_KEY }, body: fd });
+    if (!res.ok) {
+      const txt = await res.text().catch(()=>''); throw new Error('remove.bg failed: ' + res.status + ' ' + txt);
+    }
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const img = new Image(); img.crossOrigin='anonymous'; img.src = url;
+    await new Promise((resl, rej)=> { img.onload = resl; img.onerror = rej; });
+
+    // resize for tracing fidelity
+    const maxSize = 1200;
+    let w = img.naturalWidth, h = img.naturalHeight;
+    const ratio = Math.min(1, maxSize / Math.max(w,h));
+    w = Math.max(300, Math.round(w * ratio)); h = Math.max(300, Math.round(h * ratio));
+
+    // front canvas (holds remove.bg PNG)
+    const frontCanvas = document.createElement('canvas'); frontCanvas.width = w; frontCanvas.height = h;
+    const fctx = frontCanvas.getContext('2d'); fctx.clearRect(0,0,w,h); fctx.drawImage(img,0,0,w,h);
+
+    // alpha canvas
+    const aCanvas = document.createElement('canvas'); aCanvas.width = w; aCanvas.height = h;
+    const aCtx = aCanvas.getContext('2d'); aCtx.clearRect(0,0,w,h); aCtx.drawImage(img,0,0,w,h);
+
+    statusEl.textContent = 'Tracing silhouette...';
+    const rawBorder = traceBorder(aCtx, w, h, 8);
+    if (!rawBorder || rawBorder.length < 20) throw new Error('Silhouette tracing failed — try a clearer foreground image.');
+
+    statusEl.textContent = 'Simplifying shape...';
+    const simplified = simplifyRDP(rawBorder, Math.max(2, Math.min(w,h) * 0.0035));
+    const pts = simplified.map(p => [p[0], p[1]]);
+
+    statusEl.textContent = 'Preparing textures...';
+    // mirrored back canvas
+    const backCanvas = document.createElement('canvas'); backCanvas.width = w; backCanvas.height = h;
+    const bctx = backCanvas.getContext('2d'); bctx.save(); bctx.scale(-1,1); bctx.drawImage(frontCanvas, -w, 0); bctx.restore();
+
+    // convert to THREE textures
+    const frontTex = new THREE.CanvasTexture(frontCanvas); frontTex.flipY = false; frontTex.encoding = THREE.sRGBEncoding; frontTex.needsUpdate = true;
+    const backTex = new THREE.CanvasTexture(backCanvas); backTex.flipY = false; backTex.encoding = THREE.sRGBEncoding; backTex.needsUpdate = true;
+
+    // store globals for build and live updates
+    frontTexGlobal = frontTex; backTexGlobal = backTex; alphaCanvasGlobal = aCanvas; simplifiedPointsGlobal = pts;
+
+    statusEl.textContent = 'Building 3D image-shaped pillow...';
+    buildPillow();
+    statusEl.textContent = '3D image-shaped pillow ready (Front original • Back mirrored).';
+  }
+
+  /* ======= Events ======= */
+  processBtn.addEventListener('click', async ()=> {
+    const f = fileEl.files[0];
+    if (!f) return alert('Please upload an image first.');
+    statusEl.textContent = 'Processing…';
+    try {
+      await removeBgAndBuild(f);
+    } catch (err) {
+      console.error(err);
+      statusEl.textContent = 'Error: ' + (err.message || err);
+      alert('Error: ' + (err.message || err));
+    }
+  });
+
+  // live update sliders by rebuilding pillow geometry/materials (fast)
+  let rebuildTimeout;
+  function scheduleRebuild() {
+    if (!frontTexGlobal) return;
+    clearTimeout(rebuildTimeout);
+    rebuildTimeout = setTimeout(()=> {
+      try { buildPillow(); } catch(e){ console.warn('rebuild failed',e); }
+    }, 180);
+  }
+  thicknessEl.addEventListener('input', scheduleRebuild);
+  softnessEl.addEventListener('input', scheduleRebuild);
+
+  // download high-res PNG (3000x3000)
+  downloadBtn.addEventListener('click', async ()=> {
+    if (!renderer) return alert('Generate a pillow first.');
+    statusEl.textContent = 'Preparing high-res PNG...';
+    try {
+      // render at high-res in off-screen canvas by temporarily resizing renderer
+      const prevSize = renderer.getSize(new THREE.Vector2()), prevPR = renderer.getPixelRatio();
+      const cap = 3000;
+      renderer.setPixelRatio(1);
+      renderer.setSize(cap, cap);
+      renderer.render(scene, camera);
+      const dataUrl = renderer.domElement.toDataURL('image/png');
+      // restore
+      renderer.setPixelRatio(prevPR);
+      renderer.setSize(prevSize.x, prevSize.y);
+      // trigger download
+      const a = document.createElement('a'); a.href = dataUrl; a.download = 'pillow-preview.png'; document.body.appendChild(a); a.click(); a.remove();
+      statusEl.textContent = 'High-res PNG ready (downloaded).';
+    } catch(e){ console.error(e); statusEl.textContent = 'Download failed.'; }
+  });
+
+  // reset
+  resetBtn.addEventListener('click', ()=> {
+    location.reload();
+  });
+
+  // add to cart
+  addToCartBtn.addEventListener('click', async ()=> {
+    const size = sizeSelect.value;
+    const variantId = VARIANT_IDS[size];
+    if (!variantId) return alert('Variant IDs not configured.');
+    statusEl.textContent = 'Adding to cart…';
+    const props = { '_pillow_size': size, '_pillow_price': '$' + PRICE_BY_SIZE[size] };
+    if (generatedImageDataUrl) props['_pillow_preview'] = generatedImageDataUrl;
+    try {
+      const res = await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: variantId, quantity: 1, properties: props })
+      });
+      if (res.ok) {
+        statusEl.textContent = '✅ Added to cart';
+      } else {
+        const j = await res.json().catch(()=>({}));
+        statusEl.textContent = '❌ Cart error: ' + (j.description || res.status);
+      }
+    } catch (e) {
+      console.error(e);
+      statusEl.textContent = '❌ Network error adding to cart';
+    }
+  });
+  </script>
+</body>
+</html>
